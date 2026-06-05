@@ -1,0 +1,4613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Intern Dashboard</title>
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --surface: #ffffff;
+      --sidebar-bg: #1b2133;
+      --sidebar-hover: #252e45;
+      --sidebar-active: #2e3a55;
+      --sidebar-text: #b0b8cc;
+      --sidebar-text-active: #ffffff;
+      --primary: #0052cc;
+      --primary-hover: #0041a8;
+      --text: #172b4d;
+      --text-secondary: #6b778c;
+      --border: #dfe1e6;
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fbbf24;
+      --red: #c0392b;
+      --red-bg: #fff5f5;
+      --red-border: #fc8181;
+      --green: #00875a;
+      --green-bg: #e3fcef;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+      --radius: 6px;
+      --radius-lg: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* ── SETUP SCREEN ── */
+    #setup-screen {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      padding: 40px 20px;
+      height: 100vh;
+      background: linear-gradient(135deg, #f0f4ff 0%, #f4f5f7 100%);
+    }
+
+    .setup-card {
+      background: var(--surface);
+      border-radius: 14px;
+      padding: 44px 40px;
+      width: 500px;
+      box-shadow: var(--shadow-md);
+      margin: auto;
+    }
+
+    .setup-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .setup-brand-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--primary);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .setup-brand h1 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .setup-brand p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .setup-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 0 0 28px;
+    }
+
+    .form-group { margin-bottom: 20px; }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="search"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      background: white;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.12);
+    }
+
+    .help-text {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 5px;
+      line-height: 1.5;
+    }
+
+    .help-text a { color: var(--primary); text-decoration: none; }
+    .help-text a:hover { text-decoration: underline; }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      width: 100%;
+      padding: 11px;
+    }
+    .btn-primary:hover:not(:disabled) { background: var(--primary-hover); }
+    .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary:hover { background: var(--bg); border-color: #b3b9c4; }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 7px 12px;
+    }
+    .btn-ghost:hover { background: var(--bg); color: var(--text); }
+
+    .btn-sm { padding: 5px 12px; font-size: 12px; }
+
+    .btn-icon {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border-radius: var(--radius);
+      font-size: 14px;
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+    }
+    .btn-icon:hover { background: var(--bg); color: var(--text); }
+
+    /* Alerts */
+    .alert {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      margin-top: 12px;
+      display: none;
+      line-height: 1.5;
+    }
+    .alert-error { background: #fff0f0; color: #c0392b; border: 1px solid #ffc5c5; }
+    .alert-warning { background: var(--amber-bg); color: #92400e; border: 1px solid var(--amber-border); }
+    .alert-info { background: #eff6ff; color: #1e40af; border: 1px solid #bfdbfe; }
+    .alert.show { display: block; }
+
+    /* ── MAIN LAYOUT ── */
+    #main-screen { display: none; height: 100vh; }
+
+    .app-layout {
+      display: flex;
+      height: 100vh;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 232px;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-header {
+      padding: 18px 16px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar-brand-icon {
+      width: 30px;
+      height: 30px;
+      background: var(--primary);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-brand-text {
+      font-size: 13px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.01em;
+    }
+
+    .sidebar-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      padding: 14px 16px 6px;
+    }
+
+    .sidebar-users {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 8px;
+    }
+
+    .sidebar-users::-webkit-scrollbar { width: 3px; }
+    .sidebar-users::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 2px; }
+
+    .sidebar-user-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px 8px 14px;
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all 0.12s;
+      position: relative;
+    }
+
+    .sidebar-user-item:hover { background: var(--sidebar-hover); }
+    .sidebar-user-item:hover .remove-btn { opacity: 1; }
+    .remove-btn:focus { opacity: 1; outline: none; }
+
+    .sidebar-user-item.active {
+      background: var(--sidebar-active);
+      border-left-color: var(--primary);
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      letter-spacing: 0.02em;
+    }
+
+    .user-avatar.avatar-green  { background: #00875a; }
+    .user-avatar.avatar-purple { background: #6554c0; }
+    .user-avatar.avatar-teal   { background: #00b8d9; }
+    .user-avatar.avatar-orange { background: #ff5630; }
+
+    .user-details { flex: 1; min-width: 0; }
+
+    .user-display-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--sidebar-text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .sidebar-user-item.active .user-display-name { color: var(--sidebar-text-active); }
+
+    .user-role {
+      font-size: 11px;
+      color: rgba(255,255,255,0.28);
+      margin-top: 1px;
+    }
+
+    .stale-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .stale-dot-red { background: #e53e3e; color: white; }
+    .stale-dot-amber { background: var(--amber); color: white; }
+
+    .remove-btn {
+      opacity: 0.35;
+      background: transparent;
+      border: none;
+      color: rgba(255,255,255,0.35);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 3px 5px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      transition: all 0.12s;
+      line-height: 1;
+    }
+    .remove-btn:hover { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.7); }
+
+    .sidebar-footer {
+      padding: 10px 14px 14px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .btn-add-intern {
+      width: 100%;
+      padding: 8px 12px;
+      background: rgba(255,255,255,0.06);
+      border: 1px dashed rgba(255,255,255,0.2);
+      border-radius: var(--radius);
+      color: rgba(255,255,255,0.55);
+      font-size: 12px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+    .btn-add-intern:hover:not(:disabled) {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.85);
+      border-color: rgba(255,255,255,0.35);
+    }
+    .btn-add-intern:disabled { opacity: 0.35; cursor: not-allowed; }
+
+    .sidebar-bottom-links {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 14px 0;
+    }
+
+    .sidebar-settings-link {
+      font-size: 11px;
+      color: rgba(255,255,255,0.25);
+      cursor: pointer;
+      text-align: center;
+      transition: color 0.15s;
+    }
+    .sidebar-settings-link:hover { color: rgba(255,255,255,0.5); }
+
+    /* ── OVERVIEW BUTTON ── */
+    .sidebar-overview-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      margin: 6px 10px 2px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: all 0.12s;
+      border: 1px solid transparent;
+    }
+    .sidebar-overview-btn:hover { background: var(--sidebar-hover); color: rgba(255,255,255,0.9); }
+    .sidebar-overview-btn.active {
+      background: var(--sidebar-active);
+      color: white;
+      border-color: rgba(255,255,255,0.08);
+    }
+
+    /* ── GOALS VIEW ── */
+    .goals-view { padding: 20px 24px; overflow-y: auto; flex: 1; }
+    .goals-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; flex-wrap:wrap; gap:10px; }
+    .goals-title  { font-size:18px; font-weight:700; }
+    .goals-subtitle { font-size:13px; color:var(--text-secondary); margin-top:2px; }
+
+    /* ── INTERN PROGRESS SUMMARY ── */
+    .progress-summary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px 20px;
+      margin-bottom: 18px;
+      box-shadow: var(--shadow-sm);
+    }
+    .progress-summary-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; color: var(--text-secondary); margin-bottom: 14px;
+    }
+    .progress-intern {
+      border-radius: var(--radius);
+      margin-bottom: 6px;
+      overflow: hidden;
+      border: 1px solid transparent;
+      transition: border-color .15s;
+    }
+    .progress-intern:last-child { margin-bottom: 0; }
+    .progress-intern.is-expanded { border-color: var(--border); }
+    .progress-row {
+      display: grid;
+      grid-template-columns: 140px 1fr 36px 18px;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 4px;
+      cursor: pointer;
+      border-radius: var(--radius);
+      transition: background .12s;
+    }
+    .progress-row:hover { background: #f0f4ff; }
+    .progress-intern.is-expanded .progress-row { background: #f0f4ff; }
+    .progress-name {
+      font-size: 13px; font-weight: 600; color: var(--text);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .progress-track {
+      height: 7px; background: #e8eaf0; border-radius: 99px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, #0052cc, #0079f2);
+      transition: width .4s ease;
+    }
+    .progress-fill.fill-blocked { background: linear-gradient(90deg, #e53e3e, #fc8181); }
+    .progress-fill.fill-good   { background: linear-gradient(90deg, #00875a, #36b37e); }
+    .progress-pct { font-size: 11px; font-weight: 700; color: var(--text); text-align: right; }
+    .progress-chevron { font-size: 10px; color: var(--text-secondary); transition: transform .2s; }
+    .progress-intern.is-expanded .progress-chevron { transform: rotate(90deg); }
+    /* Expanded goal detail */
+    .progress-detail {
+      display: none;
+      padding: 6px 10px 10px 10px;
+      border-top: 1px solid var(--border);
+    }
+    .progress-intern.is-expanded .progress-detail { display: block; }
+    .intern-progress-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.10); }
+    .intern-progress-header:hover { background: #f0f4ff !important; }
+    .goal-row {
+      display: flex; align-items: flex-start; gap: 8px;
+      padding: 6px 0; border-bottom: 1px solid #f0f1f4;
+      font-size: 12px;
+    }
+    .goal-row:last-child { border-bottom: none; }
+    details[open] .done-chevron { transform: rotate(90deg); }
+    details summary::-webkit-details-marker { display: none; }
+    .goal-row-bar-wrap { padding-top: 3px; min-width: 60px; }
+    .goal-row-track { height: 5px; background: #e8eaf0; border-radius: 99px; overflow: hidden; }
+    .goal-row-fill  { height: 100%; border-radius: 99px; }
+    .goal-status-dot {
+      width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0;
+    }
+    .dot-done    { background: var(--green); }
+    .dot-pending { background: #f59e0b; }
+    .dot-blocked { background: var(--red); }
+    .goal-text-wrap { flex: 1; line-height: 1.4; }
+    .goal-text-label { font-weight: 600; color: var(--text); }
+    .goal-text-notes { color: var(--text-secondary); margin-top: 2px; font-size: 11px; }
+    .goal-pct-label { font-size: 11px; font-weight: 700; color: var(--text-secondary); white-space: nowrap; margin-top: 2px; }
+
+    /* ── CHECKLIST ── */
+    .checklist { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      padding: 6px 10px;
+      border-radius: var(--radius);
+      background: #f8f9fc;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.12s;
+      user-select: none;
+    }
+    .checklist-item:hover { background: #eef1f8; }
+    .checklist-item.item-done { background: var(--green-bg); border-color: #b7eacf; }
+    .checklist-item.item-done .checklist-text { text-decoration: line-through; color: var(--text-secondary); }
+    .checklist-item.item-blocked { background: var(--red-bg); border-color: var(--red-border); }
+    .checklist-item.item-blocked .checklist-text { color: var(--red); }
+    .checklist-cb {
+      width: 16px; height: 16px;
+      min-width: 16px;
+      border: 2px solid #aab0c0;
+      border-radius: 3px;
+      margin-top: 1px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px;
+      background: white;
+      transition: background 0.12s, border-color 0.12s;
+    }
+    .checklist-item.item-done .checklist-cb { background: var(--green); border-color: var(--green); color: white; }
+    .checklist-item.item-blocked .checklist-cb { border-color: var(--red); }
+    .checklist-text { font-size: 13px; line-height: 1.45; flex: 1; }
+    .checklist-badge {
+      font-size: 10px; font-weight: 600; padding: 1px 6px;
+      border-radius: 9px; white-space: nowrap; margin-top: 1px;
+    }
+    .badge-blocked { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .badge-person  { background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe; }
+    .no-items-hint { font-size: 12px; color: #aaa; font-style: italic; padding: 4px 0; }
+
+    .goals-setup-card {
+      background: white; border: 1px solid var(--border); border-radius: 10px;
+      padding: 32px 28px; max-width: 480px; margin: 40px auto; text-align: center;
+    }
+    .goals-setup-card h3 { margin: 12px 0 6px; font-size:16px; }
+    .goals-setup-card p  { font-size:13px; color:var(--text-secondary); margin-bottom:20px; }
+    .goals-setup-input   { width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px; font-size:13px; margin-bottom:8px; box-sizing:border-box; }
+
+    .week-block { margin-bottom: 28px; }
+    .week-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--text-secondary); padding: 6px 0; margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .goal-card {
+      background: white; border: 1px solid var(--border); border-radius: 8px;
+      padding: 14px 16px; margin-bottom: 10px;
+    }
+    .goal-card-header {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 8px;
+    }
+    .goal-badge {
+      font-size: 10px; font-weight: 700; background: #eff6ff; color: #1d4ed8;
+      border: 1px solid #bfdbfe; border-radius: 4px; padding: 2px 7px; white-space: nowrap;
+    }
+    .goal-author { font-size: 12px; color: var(--text-secondary); }
+    .goal-text   { font-size: 14px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; }
+
+    .updates-list { margin-top: 8px; padding-left: 4px; }
+    .update-row {
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 7px 0; border-bottom: 1px solid #f4f5f7; font-size: 13px;
+    }
+    .update-row:last-child { border-bottom: none; }
+    .update-day  { font-weight: 600; color: var(--text-secondary); font-size: 11px; min-width: 36px; padding-top: 2px; }
+    .update-author { font-size:11px; color: var(--text-secondary); white-space: nowrap; }
+    .update-text { flex:1; line-height:1.5; white-space: pre-wrap; word-break: break-word; }
+    .no-updates  { font-size:13px; color:#aaa; padding:6px 0; font-style:italic; }
+
+    /* ── SUMMARY VIEW ── */
+    .summary-view { padding: 20px 24px; overflow-y: auto; flex: 1; }
+
+    .summary-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .summary-title { font-size: 18px; font-weight: 700; }
+    .summary-subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
+
+    /* Person cards */
+    .person-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .person-card {
+      background: white;
+      border-radius: 10px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.15s;
+    }
+    .person-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); border-color: var(--border); }
+    .person-card.has-stale-red   { border-color: var(--red-border); }
+    .person-card.has-stale-amber { border-color: var(--amber-border); }
+
+    .person-card-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .person-card-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--primary); color: white;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; flex-shrink: 0;
+    }
+    .person-card-name { font-size: 14px; font-weight: 600; }
+    .person-card-you  { font-size: 11px; color: var(--text-secondary); margin-top: 1px; }
+
+    .person-sprint {
+      margin-bottom: 10px;
+    }
+    .person-sprint-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .person-sprint-label span:last-child { font-weight: 600; color: var(--text); }
+    .person-sprint-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .person-sprint-fill  { height: 100%; background: var(--green); border-radius: 3px; transition: width 0.4s; }
+
+    .person-counts {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .count-chip {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+    .count-todo     { background: #ebecf0; color: #5e6c84; }
+    .count-inprog   { background: #deebff; color: #0747a6; }
+    .count-review   { background: #eae6ff; color: #403294; }
+    .count-done     { background: var(--green-bg); color: #006644; }
+
+    .person-stale-line {
+      margin-top: 8px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .person-stale-line.red   { color: var(--red); }
+    .person-stale-line.amber { color: var(--amber); }
+
+    /* Bottom panels */
+    .summary-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) { .summary-panels { grid-template-columns: 1fr; } }
+
+    .summary-panel {
+      background: white;
+      border-radius: 10px;
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+    .summary-panel-header {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-count-badge {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--text-secondary);
+    }
+    .panel-count-badge.red { background: var(--red-bg); color: var(--red); }
+
+    .summary-panel-body { max-height: 320px; overflow-y: auto; }
+
+    .summary-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .summary-row:last-child { border-bottom: none; }
+    .summary-row:hover { background: var(--bg); }
+
+    .summary-row-key {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+      margin-top: 1px;
+    }
+    .summary-row-body { flex: 1; min-width: 0; }
+    .summary-row-title {
+      font-size: 13px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .summary-row-meta {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+    .summary-row-time { margin-left: auto; font-size: 11px; white-space: nowrap; }
+    .summary-row-time.red   { color: var(--red);   font-weight: 600; }
+    .summary-row-time.amber { color: var(--amber); font-weight: 600; }
+
+    .summary-empty {
+      padding: 24px 16px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    /* ── GLOBAL SEARCH ── */
+    .global-search-bar {
+      padding: 10px 24px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .global-search-input {
+      width: 100%;
+      padding: 8px 36px 8px 14px;
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+    }
+    .global-search-input:focus {
+      border-color: var(--primary);
+      background: white;
+      box-shadow: 0 0 0 3px rgba(0,82,204,0.1);
+    }
+    .global-search-icon {
+      position: absolute;
+      right: 38px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+      font-size: 14px;
+      pointer-events: none;
+    }
+    .global-search-clear {
+      position: absolute;
+      right: 38px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 16px;
+      padding: 0 4px;
+      line-height: 1;
+      display: none;
+    }
+    .global-search-clear.show { display: block; }
+    .global-search-clear:hover { color: var(--text); }
+
+    /* Search results view */
+    .search-results-view {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 24px;
+    }
+
+    .search-results-header {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .search-results-count {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .search-result-card {
+      background: white;
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: all 0.12s;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .search-result-card:hover {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border);
+    }
+    .search-result-card.stale-amber { border-color: var(--amber-border); }
+    .search-result-card.stale-red   { border-color: var(--red-border); }
+
+    .search-result-key {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--primary);
+      white-space: nowrap;
+      margin-top: 2px;
+      min-width: 70px;
+    }
+
+    .search-result-body { flex: 1; min-width: 0; }
+
+    .search-result-title {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 5px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .search-result-title mark {
+      background: #fff3b0;
+      border-radius: 2px;
+      padding: 0 1px;
+    }
+
+    .search-result-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .search-result-person {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .search-result-person-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-size: 8px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .search-result-status {
+      font-size: 11px;
+      color: var(--text-secondary);
+      background: var(--bg);
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+
+    .search-result-time {
+      font-size: 11px;
+      margin-left: auto;
+      white-space: nowrap;
+    }
+    .search-result-time.red   { color: var(--red);   font-weight: 600; }
+    .search-result-time.amber { color: var(--amber); font-weight: 600; }
+
+    .search-no-results {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--text-secondary);
+      font-size: 14px;
+    }
+
+    .search-no-results-icon { font-size: 32px; margin-bottom: 10px; }
+
+    /* ── MAIN CONTENT ── */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── BOARD HEADER ── */
+    .board-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+
+    .board-header-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .board-header-info { flex: 1; min-width: 0; }
+
+    .board-header-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .board-header-email {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .board-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 4px;
+      background: #f4f5f7;
+      border-radius: 6px;
+      padding: 3px;
+      margin-bottom: 10px;
+    }
+    .filter-tab {
+      padding: 5px 12px;
+      font-size: 12px;
+      font-weight: 500;
+      border: none;
+      border-radius: 4px;
+      background: transparent;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .filter-tab:hover { color: var(--text); }
+    .filter-tab.active {
+      background: white;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+      font-weight: 600;
+    }
+    .filter-tab-loading { opacity: 0.6; pointer-events: none; }
+
+    .stale-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .stale-badge-red { background: var(--red-bg); color: var(--red); border: 1px solid var(--red-border); }
+    .stale-badge-amber { background: var(--amber-bg); color: var(--amber); border: 1px solid var(--amber-border); }
+
+    .btn-action {
+      padding: 7px 14px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: all 0.15s;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-secondary);
+    }
+    .btn-action:hover { border-color: #b3b9c4; color: var(--text); background: var(--bg); }
+
+    .btn-action-primary {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: white;
+    }
+    .btn-action-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); color: white; }
+
+    /* ── SPRINT BAR ── */
+    .sprint-bar {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .sprint-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    .sprint-track {
+      width: 100px;
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .sprint-fill {
+      height: 100%;
+      background: var(--green);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    .sprint-count {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    /* ── BOARD ── */
+    .board-area {
+      flex: 1;
+      overflow: auto;
+      padding: 20px 22px;
+    }
+
+    .board-columns {
+      display: flex;
+      gap: 14px;
+      min-height: calc(100% - 8px);
+      align-items: flex-start;
+    }
+
+    .column {
+      flex: 1;
+      min-width: 200px;
+      max-width: 280px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .column-header {
+      padding: 10px 12px;
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .column-title {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .column-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(0,0,0,0.09);
+      padding: 1px 7px;
+      border-radius: 10px;
+    }
+
+    .col-todo    .column-header { background: #ebecf0; color: #5e6c84; }
+    .col-inprog  .column-header { background: #deebff; color: #0747a6; }
+    .col-review  .column-header { background: #eae6ff; color: #403294; }
+    .col-done    .column-header { background: var(--green-bg); color: #006644; }
+
+    .column-body {
+      padding: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      min-height: 80px;
+      background: rgba(0,0,0,0.018);
+      border-radius: 0 0 8px 8px;
+      flex: 1;
+    }
+
+    .col-empty {
+      text-align: center;
+      color: #a0aab4;
+      font-size: 12px;
+      padding: 16px 8px;
+    }
+
+    /* ── TICKET CARD ── */
+    .ticket-card {
+      background: white;
+      border-radius: 6px;
+      padding: 11px 12px;
+      box-shadow: var(--shadow-sm);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
+    }
+    .ticket-card:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .ticket-card.stale-amber { border-color: var(--amber-border); }
+    .ticket-card.stale-red   { border-color: var(--red-border); }
+
+    .card-key {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .card-key a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .card-key a:hover { text-decoration: underline; }
+
+    .card-title {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 400;
+      line-height: 1.45;
+      margin-bottom: 9px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .priority-chip {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .prio-highest, .prio-critical { background: #ffe5e5; color: #c0392b; }
+    .prio-high                    { background: #fff3e0; color: #b45309; }
+    .prio-medium                  { background: #fff8e1; color: #d97706; }
+    .prio-low, .prio-lowest       { background: #f0f2f5; color: #6b778c; }
+
+    .card-time {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-left: auto;
+    }
+    .card-time.amber { color: var(--amber); font-weight: 600; }
+    .card-time.red   { color: var(--red);   font-weight: 600; }
+
+    /* ── LOADING / EMPTY STATES ── */
+    .board-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 14px;
+      gap: 10px;
+    }
+
+    .spinner {
+      width: 22px;
+      height: 22px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.65s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .error-state {
+      background: var(--red-bg);
+      border: 1px solid var(--red-border);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      color: var(--red);
+      font-size: 13px;
+      max-width: 480px;
+      text-align: center;
+    }
+
+    /* ── MODALS ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      backdrop-filter: blur(2px);
+    }
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: white;
+      border-radius: 12px;
+      width: 480px;
+      max-width: 95vw;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: 0 12px 48px rgba(0,0,0,0.22);
+    }
+
+    .modal-header {
+      padding: 22px 24px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    .modal-header h3 { font-size: 16px; font-weight: 700; }
+    .modal-header p  { font-size: 13px; color: var(--text-secondary); margin-top: 3px; }
+
+    .modal-body { padding: 20px 24px; }
+
+    .modal-footer {
+      padding: 14px 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 8px;
+      justify-content: flex-end;
+    }
+
+    /* Search results */
+    .search-results-list {
+      margin-top: 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: none;
+    }
+    .search-results-list.show { display: block; }
+
+    .search-result-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .search-result-row:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .search-result-row:hover { background: var(--bg); }
+
+    .result-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .result-name  { font-size: 13px; font-weight: 500; }
+    .result-email { font-size: 12px; color: var(--text-secondary); margin-top: 1px; }
+
+    .search-empty {
+      padding: 18px;
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+
+    .intern-limit-msg {
+      font-size: 12px;
+      color: var(--amber);
+      margin-top: 8px;
+      display: none;
+    }
+    .intern-limit-msg.show { display: block; }
+
+    /* Ticket side panel */
+    .side-panel-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      display: none;
+      z-index: 150;
+    }
+    .side-panel-overlay.open { display: block; }
+
+    .side-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 520px;
+      max-width: 95vw;
+      background: white;
+      box-shadow: -4px 0 24px rgba(0,0,0,0.14);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 151;
+      transform: translateX(100%);
+      transition: transform 0.22s ease;
+    }
+    .side-panel.open { transform: translateX(0); }
+
+    .panel-header {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .panel-key-title { flex: 1; min-width: 0; }
+
+    .panel-key {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+    .panel-key a { color: var(--primary); text-decoration: none; }
+    .panel-key a:hover { text-decoration: underline; }
+
+    .panel-title {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .panel-close {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      padding: 2px 6px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .panel-close:hover { background: var(--bg); }
+
+    .panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px 20px;
+    }
+
+    .panel-meta-row {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    .panel-meta-item { }
+    .panel-meta-label { font-size: 11px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; margin-bottom: 4px; }
+    .panel-meta-value { font-size: 13px; color: var(--text); font-weight: 500; }
+
+    .panel-section-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 8px;
+    }
+
+    .panel-description {
+      font-size: 13px;
+      color: var(--text);
+      line-height: 1.6;
+      white-space: pre-wrap;
+      background: var(--bg);
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      margin-bottom: 18px;
+    }
+
+    .comments-list { margin-bottom: 18px; }
+
+    .comment-item {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .comment-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .comment-bubble {
+      flex: 1;
+      background: var(--bg);
+      border-radius: 6px;
+      padding: 9px 12px;
+    }
+
+    .comment-author {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .comment-time {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-left: 6px;
+    }
+
+    .comment-body {
+      font-size: 13px;
+      color: var(--text);
+      margin-top: 4px;
+      line-height: 1.5;
+    }
+
+    .comment-box {
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      font-size: 13px;
+      font-family: inherit;
+      resize: vertical;
+      min-height: 80px;
+      outline: none;
+      width: 100%;
+      transition: border-color 0.15s;
+    }
+    .comment-box:focus { border-color: var(--primary); }
+
+    .panel-action-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .panel-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border);
+      background: white;
+    }
+
+    .assignee-search-wrap {
+      position: relative;
+      display: inline-block;
+    }
+    .assignee-search-input {
+      width: 160px;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 12px;
+      outline: none;
+    }
+    .assignee-search-input:focus { border-color: var(--primary); }
+    .assignee-dropdown {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 3px);
+      left: 0;
+      z-index: 9999;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      min-width: 220px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .assignee-dropdown-item {
+      padding: 7px 12px;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    .assignee-dropdown-item:hover { background: #f4f5f7; }
+    .assignee-dropdown-msg { padding: 8px 12px; font-size: 12px; color: var(--text-secondary); }
+
+    .status-select, .assignee-select {
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      background: white;
+      cursor: pointer;
+      outline: none;
+    }
+    .status-select:focus, .assignee-select:focus { border-color: var(--primary); }
+
+    .panel-fields {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .save-indicator {
+      font-size: 12px;
+      color: var(--green);
+      display: none;
+    }
+    .save-indicator.show { display: inline; }
+    .save-indicator.error { color: var(--red); }
+
+    /* ── EDIT FIELDS ── */
+    .edit-title-input {
+      width: 100%;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      border: 2px solid transparent;
+      border-radius: var(--radius);
+      padding: 4px 6px;
+      margin: -4px -6px;
+      font-family: inherit;
+      background: transparent;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      resize: none;
+      line-height: 1.4;
+    }
+    .edit-title-input:hover { border-color: var(--border); background: var(--bg); }
+    .edit-title-input:focus { border-color: var(--primary); background: white;
+      box-shadow: 0 0 0 3px rgba(0,82,204,0.1); }
+
+    .edit-textarea {
+      width: 100%;
+      min-height: 90px;
+      padding: 9px 10px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.15s, background 0.15s;
+      line-height: 1.5;
+    }
+    .edit-textarea:focus { border-color: var(--primary); background: white;
+      box-shadow: 0 0 0 3px rgba(0,82,204,0.1); }
+
+    .edit-row {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .edit-field { flex: 1; }
+    .edit-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 5px;
+    }
+
+    .edit-select {
+      width: 100%;
+      padding: 7px 10px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+    .edit-select:focus { border-color: var(--primary); background: white; }
+
+    .edit-input {
+      width: 100%;
+      padding: 7px 10px;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: inherit;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .edit-input:focus { border-color: var(--primary); background: white; }
+
+    .save-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .btn-save {
+      padding: 7px 18px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .btn-save:hover { background: var(--primary-hover); }
+    .btn-save:disabled { opacity: 0.55; cursor: not-allowed; }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1b2133;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      box-shadow: var(--shadow-md);
+      z-index: 999;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.2s;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { background: var(--red); }
+    .toast.success { background: var(--green); }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════
+     SETUP SCREEN
+════════════════════════════════════ -->
+<div id="setup-screen">
+  <div class="setup-card">
+    <div class="setup-brand">
+      <div class="setup-brand-icon">📋</div>
+      <div>
+        <h1>Intern Dashboard</h1>
+        <p>Manage your team from one screen.</p>
+      </div>
+    </div>
+    <hr class="setup-divider">
+    <div class="form-group">
+      <label for="jira-url">Jira URL</label>
+      <input type="text" id="jira-url" placeholder="https://jira.ringcentral.com" value="https://jira.ringcentral.com">
+      <div class="help-text">Your company Jira — no trailing slash needed.</div>
+    </div>
+    <div class="form-group">
+      <label for="jira-pat">Personal Access Token (PAT)</label>
+      <input type="password" id="jira-pat" placeholder="Paste your PAT here" autocomplete="off">
+      <div class="help-text">
+        Create one in Jira → <strong>Profile → Personal Access Tokens</strong>. It's stored only in your browser.
+      </div>
+    </div>
+    <hr class="setup-divider" style="margin:20px 0 16px">
+    <div style="font-size:12px;font-weight:600;color:var(--text-secondary);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.05em;">RingCentral Glip — Goals Tracking (optional)</div>
+    <div class="form-group">
+      <label for="rc-pat">JWT</label>
+      <input type="password" id="rc-pat" placeholder="Paste your RingCentral JWT" autocomplete="off">
+      <div class="help-text">
+        Find it at <strong>developer.ringcentral.com → Console → (your name) → Credentials → JWT</strong>.
+        Never expires — paste once.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rc-client-id">App Client ID</label>
+      <input type="text" id="rc-client-id" placeholder="e.g. auoaaPy2z2wd3C0PyPQq13" autocomplete="off">
+      <div class="help-text">
+        Find it at <strong>developer.ringcentral.com → Apps → (your app) → Credentials</strong> — copy the Client ID shown there.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rc-client-secret">App Client Secret</label>
+      <input type="password" id="rc-client-secret" placeholder="Paste your app's Client Secret" autocomplete="off">
+      <div class="help-text">
+        Same page as Client ID — copy the Client Secret shown next to it.
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="rc-group-id">Glip Group / Team ID</label>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <input type="text" id="rc-group-id" placeholder="e.g. 62956878" style="flex:1">
+        <button class="btn btn-secondary" type="button" onclick="browseRCGroups()" style="white-space:nowrap;padding:8px 12px;font-size:12px;">Browse Groups</button>
+      </div>
+      <div id="rc-groups-list" style="display:none;margin-top:8px;border:1px solid var(--border);border-radius:6px;max-height:160px;overflow-y:auto;background:white;"></div>
+      <div class="help-text">The group or team chat where your manager posts weekly goals.</div>
+    </div>
+
+    <button class="btn btn-primary" id="connect-btn" onclick="connectToJira()">
+      Connect to Jira
+    </button>
+    <button class="btn" id="setup-back-btn" onclick="enterMainScreen()" style="display:none;margin-top:8px;width:100%;background:transparent;border:1px solid #ccc;color:#555;">
+      ← Back to Dashboard
+    </button>
+    <div id="setup-error" class="alert alert-error"></div>
+    <div id="setup-cors-note" class="alert alert-warning show" style="margin-top:14px; font-size:12px;">
+      <strong>CORS fix required</strong> — browsers block direct Jira API calls from localhost.<br><br>
+      Run the included proxy instead (one-time setup):<br>
+      <code style="display:block;margin:6px 0;background:rgba(0,0,0,0.06);padding:5px 8px;border-radius:4px;">node proxy.js</code>
+      Then open <strong>http://localhost:3001</strong> — the proxy serves the dashboard too.
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     MAIN SCREEN
+════════════════════════════════════ -->
+<div id="main-screen">
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-brand">
+          <div class="sidebar-brand-icon">📋</div>
+          <span class="sidebar-brand-text">Intern Dashboard</span>
+        </div>
+      </div>
+      <div class="sidebar-overview-btn active" id="sidebar-overview-btn"
+           onclick="selectSummary()">
+        <span>📊</span> Overview
+      </div>
+      <div class="sidebar-overview-btn" id="sidebar-goals-btn"
+           onclick="selectGoals()">
+        <span>🎯</span> Goals &amp; Updates
+      </div>
+      <div class="sidebar-section-label">Team</div>
+      <div class="sidebar-users" id="sidebar-users">
+        <!-- populated by JS -->
+      </div>
+      <div class="sidebar-footer">
+        <button class="btn-add-intern" id="add-intern-btn" onclick="openAddInternModal()">+ Add Person</button>
+        <div class="sidebar-bottom-links">
+          <div class="sidebar-settings-link" onclick="goToSetup()">⚙ Settings</div>
+          <div class="sidebar-settings-link" onclick="logout()">Sign out</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Global search bar -->
+    <div class="global-search-bar">
+      <input class="global-search-input" id="global-search-input"
+             type="search" placeholder="🔍  Search tickets by title, key, assignee, or status…"
+             oninput="handleGlobalSearch(this.value)"
+             onkeydown="if(event.key==='Escape'){clearSearch();}">
+      <button class="global-search-clear" id="search-clear-btn" onclick="clearSearch()">✕</button>
+    </div>
+
+    <!-- Board area -->
+    <div class="main-content" id="main-content">
+      <div class="board-state" style="height:100%">
+        <div class="spinner"></div>
+        <span>Loading…</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     ADD INTERN MODAL
+════════════════════════════════════ -->
+<div class="modal-overlay" id="add-intern-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Add Person</h3>
+      <p>Search by name or email to track them on your dashboard.</p>
+    </div>
+    <div class="modal-body">
+      <input type="search" id="intern-search-input"
+             placeholder="Type a name or email…"
+             oninput="handleInternSearch(this.value)">
+      <div class="search-results-list" id="intern-search-results"></div>
+      <div class="intern-limit-msg" id="intern-limit-msg">
+        Maximum of 5 people reached. Remove one to add another.
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeAddInternModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════
+     TICKET SIDE PANEL
+════════════════════════════════════ -->
+<div class="side-panel-overlay" id="panel-overlay" onclick="closePanel()"></div>
+<div class="side-panel" id="side-panel">
+  <div class="panel-header">
+    <div class="panel-key-title">
+      <div class="panel-key" id="panel-key"></div>
+      <div class="panel-title" id="panel-title"></div>
+    </div>
+    <button class="panel-close" onclick="closePanel()">✕</button>
+  </div>
+  <div class="panel-body" id="panel-body">
+    <!-- populated by JS -->
+  </div>
+  <div class="panel-footer" id="panel-footer">
+    <!-- status & assignee controls -->
+  </div>
+</div>
+
+<!-- Toast notification -->
+<div class="toast" id="toast"></div>
+
+<!-- ════════════════════════════════════
+     APP SCRIPT
+════════════════════════════════════ -->
+<script>
+'use strict';
+
+// ────────────────────────────────────
+// STATE
+// ────────────────────────────────────
+const S = {
+  jiraUrl: '',
+  pat: '',
+  pmUser: null,
+  interns: [],            // array of Jira user objects
+  activeUserId: null,
+  tickets: {},            // { userId → { todo, inProgress, inReview, done } }
+  ticketMap: {},          // { issueKey → issue } for quick lookup
+  loading: {},            // { userId → bool }
+  searchResults: [],        // temp store for search rows
+  currentPanelKey: null,    // currently open ticket key
+  staleAmberH: 36,          // hours before a ticket is flagged amber
+  staleRedH:   48,          // hours before a ticket is flagged red
+  ticketMode: {},           // { [userId]: 'assigned' | 'commented' }
+  ticketsCommented: {},     // separate cache for commented-mode tickets
+  rcPat: '',                // RingCentral JWT (localStorage only)
+  rcClientId: '',           // RingCentral App Client ID
+  rcClientSecret: '',       // RingCentral App Client Secret
+  rcGroupId: '',            // Glip group/team ID to track
+  glipPosts: [],            // fetched messages from the group
+  glipPersons: {},          // { personId → displayName } cache
+  glipLoading: false,
+  checklistMode: false,     // toggle: raw text vs interactive checklist
+  checklistState: {},       // { "postId_idx": true/false } checked state persisted to disk
+  parsedMessages: {},       // { postId: { heading, items:[{text,status}] } } — set by Claude when auto-parser can't handle a message
+  progressSnapshot: null,   // Claude-analyzed progress: { updatedAt, weekOf, interns:[...] }
+  expandedIntern: null,     // which intern's goals are expanded in the progress panel
+  goalsViewMode: 'progress', // 'progress' (intern list) or 'updates' (raw messages)
+};
+const MAX_INTERNS   = 5;
+
+const AVATAR_COLORS = ['avatar-green','avatar-purple','avatar-teal','avatar-orange'];
+
+// ────────────────────────────────────
+// PERSISTENCE
+// ────────────────────────────────────
+// Non-sensitive data (jiraUrl, pmUser, interns) is saved to dashboard-data.json
+// on disk via the proxy so it survives browser cache clears and private mode.
+// The PAT is kept in localStorage only — it never touches disk.
+
+async function saveSettings() {
+  // Always write everything to localStorage as a reliable fallback
+  try {
+    localStorage.setItem('id_pat',         S.pat);
+    localStorage.setItem('id_url',         S.jiraUrl);
+    localStorage.setItem('id_pm',          JSON.stringify(S.pmUser));
+    localStorage.setItem('id_interns',     JSON.stringify(S.interns));
+    localStorage.setItem('id_stale_amber', S.staleAmberH);
+    localStorage.setItem('id_stale_red',   S.staleRedH);
+    localStorage.setItem('id_rc_pat',           S.rcPat);
+    localStorage.setItem('id_rc_client_id',     S.rcClientId);
+    localStorage.setItem('id_rc_client_secret', S.rcClientSecret);
+  } catch(_) {}
+
+  // Also persist to disk via proxy (survives localStorage clears)
+  const payload = {
+    jiraUrl:        S.jiraUrl,
+    pmUser:         S.pmUser,
+    interns:        S.interns,
+    staleAmberH:    S.staleAmberH,
+    staleRedH:      S.staleRedH,
+    rcGroupId:      S.rcGroupId,
+    checklistState:  S.checklistState,
+    parsedMessages:  S.parsedMessages,
+  };
+  try {
+    await fetch('/data', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+  } catch(_) {} // Proxy unavailable — localStorage backup above is sufficient
+}
+
+async function loadSettings() {
+  // PAT always comes from localStorage
+  S.pat        = localStorage.getItem('id_pat')           || '';
+  S.rcPat          = localStorage.getItem('id_rc_pat')            || '';
+  S.rcClientId     = localStorage.getItem('id_rc_client_id')      || '';
+  S.rcClientSecret = localStorage.getItem('id_rc_client_secret')  || '';
+
+  // Try loading team data from disk first (proxy must be running)
+  let diskLoaded = false;
+  try {
+    const res  = await fetch('/data');
+    const data = await res.json();
+    if (data.jiraUrl)     { S.jiraUrl     = data.jiraUrl;     diskLoaded = true; }
+    if (data.pmUser)      { S.pmUser      = data.pmUser;      diskLoaded = true; }
+    if (Array.isArray(data.interns)) { S.interns = data.interns; diskLoaded = true; }
+    if (data.staleAmberH)    S.staleAmberH    = data.staleAmberH;
+    if (data.staleRedH)      S.staleRedH      = data.staleRedH;
+    if (data.rcGroupId)      S.rcGroupId      = data.rcGroupId;
+    if (data.checklistState)  S.checklistState  = data.checklistState;
+    if (data.parsedMessages)  S.parsedMessages  = data.parsedMessages;
+  } catch(_) {}
+
+  // Always fall back to localStorage for any fields not loaded from disk
+  if (!S.jiraUrl) S.jiraUrl = localStorage.getItem('id_url') || '';
+  try {
+    if (!S.pmUser) {
+      const pm = localStorage.getItem('id_pm');
+      S.pmUser = pm ? JSON.parse(pm) : null;
+    }
+    if (!S.interns.length) {
+      const ins = localStorage.getItem('id_interns');
+      S.interns = ins ? JSON.parse(ins) : [];
+    }
+    const lsAmber = parseInt(localStorage.getItem('id_stale_amber'), 10);
+    const lsRed   = parseInt(localStorage.getItem('id_stale_red'),   10);
+    if (lsAmber > 0) S.staleAmberH = lsAmber;
+    if (lsRed   > 0) S.staleRedH   = lsRed;
+  } catch(_) {}
+}
+
+async function loadProgress() {
+  try {
+    // On localhost use proxy.js endpoint; on GitHub Pages fetch the JSON file directly
+    const url = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
+      ? '/progress'
+      : 'progress-snapshots.json';
+    const res  = await fetch(url);
+    const data = await res.json();
+    if (data) S.progressSnapshot = data;
+  } catch(_) {}
+}
+
+// ────────────────────────────────────
+// JIRA API
+// ────────────────────────────────────
+
+// When served via proxy.js (localhost), route through /jira/* to avoid CORS.
+// When accessed directly (e.g. corp intranet with CORS enabled), call Jira directly.
+function isProxied() {
+  const h = window.location.hostname;
+  return h === 'localhost' || h === '127.0.0.1';
+}
+
+async function jira(apiPath, opts = {}) {
+  let url, headers;
+
+  if (isProxied()) {
+    // Proxy path: /jira/rest/api/2/...  — proxy.js forwards to real Jira
+    url = '/jira/rest/api/2' + apiPath;
+    headers = {
+      'Content-Type':  'application/json',
+      'Accept':        'application/json',
+      'X-Jira-Url':   S.jiraUrl,
+      'X-Jira-Pat':   S.pat,
+      ...(opts.headers || {}),
+    };
+  } else {
+    // Direct path (CORS must be enabled on the Jira server)
+    url = S.jiraUrl + '/rest/api/2' + apiPath;
+    headers = {
+      'Authorization': 'Bearer ' + S.pat,
+      'Content-Type':  'application/json',
+      'Accept':        'application/json',
+      ...(opts.headers || {}),
+    };
+  }
+
+  const res = await fetch(url, { ...opts, headers });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    const err  = new Error('HTTP ' + res.status + ' — ' + (body.slice(0, 300) || res.statusText));
+    err.status  = res.status;
+    err.rawBody = body;
+    throw err;
+  }
+  // 204 No Content (common on successful PUT/DELETE) — return null instead of crashing
+  if (res.status === 204 || res.headers.get('content-length') === '0') return null;
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+function uid(user) {
+  // Used as a local key only — prefer accountId → key → name for uniqueness
+  return user.accountId || user.key || user.name || '';
+}
+
+function jqlId(user) {
+  // Used in JQL queries sent to Jira.
+  // Jira Server/DC: JQL uses the login name (user.name or user.key)
+  // Jira Cloud: JQL uses accountId
+  // We prefer name/key first because jira.ringcentral.com is Server/DC.
+  return user.name || user.key || user.accountId || '';
+}
+
+function jqlForUser(user) {
+  const id  = jqlId(user);
+  const jql = `(assignee = "${id}" OR reporter = "${id}") ORDER BY updated DESC`;
+  console.log(`[JQL] ${user.displayName || id}  →  ${jql}`);
+  return jql;
+}
+
+function jqlForUserActivity(user) {
+  const id  = jqlId(user);
+  // issueFunction in commented() requires ScriptRunner plugin on Jira Server
+  // Finds tickets where the user personally left a comment
+  const jql = `issueFunction in commented("by ${id}") ORDER BY updated DESC`;
+  console.log(`[JQL activity] ${user.displayName || id}  →  ${jql}`);
+  return jql;
+}
+
+async function apiGetMe() {
+  return jira('/myself');
+}
+
+async function apiFetchUserTickets(user) {
+  const q    = encodeURIComponent(jqlForUser(user));
+  const flds = 'summary,status,priority,updated,assignee,reporter,issuetype,project,description,comment';
+  const data = await jira(`/search?jql=${q}&fields=${flds}&maxResults=150`);
+  const issues = data.issues || [];
+  console.log(`[tickets] ${user.displayName}: ${issues.length} issues (total: ${data.total})`);
+  return issues;
+}
+
+async function apiFetchActivityTickets(user) {
+  const q    = encodeURIComponent(jqlForUserActivity(user));
+  const flds = 'summary,status,priority,updated,assignee,reporter,issuetype,project,description,comment';
+  const data = await jira(`/search?jql=${q}&fields=${flds}&maxResults=150`);
+  const issues = data.issues || [];
+  console.log(`[tickets activity] ${user.displayName}: ${issues.length} issues`);
+  return issues;
+}
+
+async function apiSearchUsers(query) {
+  // Try both the Cloud and Server endpoints gracefully
+  try {
+    const res = await jira(`/user/search?query=${encodeURIComponent(query)}&maxResults=10`);
+    if (Array.isArray(res)) return res;
+    return res.users || [];
+  } catch(_) {
+    try {
+      const res = await jira(`/user/picker?query=${encodeURIComponent(query)}&maxResults=10`);
+      return res.users || [];
+    } catch(__) { return []; }
+  }
+}
+
+async function apiGetTransitions(issueKey) {
+  const data = await jira(`/issue/${issueKey}/transitions`);
+  return data.transitions || [];
+}
+
+async function apiGetIssuePriorities(issueKey) {
+  // Use the issue's edit metadata — returns only the priorities allowed
+  // for this specific issue type / project / priority scheme.
+  // This matches exactly what Jira shows in its own edit screen.
+  try {
+    const meta = await jira(`/issue/${issueKey}/editmeta`);
+    const allowed = meta?.fields?.priority?.allowedValues || [];
+    if (allowed.length) return allowed; // [{ id, name, iconUrl, ... }]
+  } catch(_) {}
+  // Fallback: fetch all system priorities
+  try {
+    const data = await jira('/priority');
+    return Array.isArray(data) ? data : [];
+  } catch(_) { return []; }
+}
+
+async function apiTransition(issueKey, transitionId) {
+  await jira(`/issue/${issueKey}/transitions`, {
+    method: 'POST',
+    body: JSON.stringify({ transition: { id: transitionId } }),
+  });
+}
+
+async function apiPostComment(issueKey, text) {
+  return jira(`/issue/${issueKey}/comment`, {
+    method: 'POST',
+    body: JSON.stringify({ body: text }),
+  });
+}
+
+async function apiAssign(issueKey, userNameOrId) {
+  await jira(`/issue/${issueKey}/assignee`, {
+    method: 'PUT',
+    body: JSON.stringify({ name: userNameOrId, accountId: userNameOrId }),
+  });
+}
+
+// ────────────────────────────────────
+// SETUP / CONNECT
+// ────────────────────────────────────
+async function connectToJira() {
+  const urlInput = document.getElementById('jira-url');
+  const patInput = document.getElementById('jira-pat');
+  const errEl    = document.getElementById('setup-error');
+  const btn      = document.getElementById('connect-btn');
+
+  errEl.classList.remove('show');
+
+  const url = urlInput.value.trim().replace(/\/+$/, '');
+  const pat = patInput.value.trim();
+
+  if (!url || !pat) {
+    showSetupError('Please enter your Jira URL and Personal Access Token.');
+    return;
+  }
+
+  S.jiraUrl   = url;
+  S.pat       = pat;
+  S.rcPat          = (document.getElementById('rc-pat')?.value           || '').trim();
+  S.rcClientId     = (document.getElementById('rc-client-id')?.value     || '').trim();
+  S.rcClientSecret = (document.getElementById('rc-client-secret')?.value || '').trim();
+  S.rcGroupId  = (document.getElementById('rc-group-id')?.value  || '').trim();
+  btn.disabled    = true;
+  btn.textContent = 'Connecting…';
+
+  try {
+    const me = await apiGetMe();
+    S.pmUser        = me;
+    S.activeUserId  = '__goals__';
+    await saveSettings();
+    enterMainScreen();
+    renderSidebar();
+    renderGoalsView();
+    // Load all tickets — summary updates as each person's data arrives
+    const allToLoad = [me, ...S.interns].filter(Boolean);
+    allToLoad.forEach(u => loadTickets(u));
+  } catch (err) {
+    S.jiraUrl = '';
+    S.pat     = '';
+    showSetupError('Connection failed: ' + err.message);
+  } finally {
+    btn.disabled    = false;
+    btn.textContent = 'Connect to Jira';
+  }
+}
+
+function showSetupError(msg) {
+  const el = document.getElementById('setup-error');
+  el.textContent = msg;
+  el.classList.add('show');
+}
+
+function goToSetup() {
+  // Pre-fill existing credentials so the user doesn't have to re-enter them
+  const urlEl = document.getElementById('jira-url');
+  const patEl = document.getElementById('jira-pat');
+  if (urlEl && S.jiraUrl) urlEl.value = S.jiraUrl;
+  if (patEl && S.pat)    patEl.value = S.pat;
+  const rcPatEl          = document.getElementById('rc-pat');
+  const rcClientIdEl     = document.getElementById('rc-client-id');
+  const rcClientSecretEl = document.getElementById('rc-client-secret');
+  const rcGroupEl        = document.getElementById('rc-group-id');
+  if (rcPatEl          && S.rcPat)          rcPatEl.value          = S.rcPat;
+  if (rcClientIdEl     && S.rcClientId)     rcClientIdEl.value     = S.rcClientId;
+  if (rcClientSecretEl && S.rcClientSecret) rcClientSecretEl.value = S.rcClientSecret;
+  if (rcGroupEl    && S.rcGroupId)  rcGroupEl.value    = S.rcGroupId;
+
+  // Show "Back" button only when already connected (so first-time users don't see it)
+  const backBtn = document.getElementById('setup-back-btn');
+  if (backBtn) backBtn.style.display = S.pmUser ? 'block' : 'none';
+
+  document.getElementById('setup-screen').style.display = 'flex';
+  document.getElementById('main-screen').style.display  = 'none';
+}
+
+function logout() {
+  if (!confirm('Sign out and clear your saved connection?')) return;
+  // Clear localStorage
+  localStorage.removeItem('id_pat');
+  localStorage.removeItem('id_url');
+  localStorage.removeItem('id_pm');
+  localStorage.removeItem('id_interns');
+  localStorage.removeItem('id_rc_pat');
+  localStorage.removeItem('id_rc_client_id');
+  // Clear disk data file via proxy
+  fetch('/data', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: '{}' }).catch(() => {});
+  // Reset state
+  S.jiraUrl = ''; S.pat = ''; S.pmUser = null;
+  S.interns = []; S.activeUserId = null;
+  S.tickets = {}; S.ticketMap = {};
+  // Clear PAT input so it doesn't linger
+  const patEl = document.getElementById('jira-pat');
+  if (patEl) patEl.value = '';
+  document.getElementById('setup-error').classList.remove('show');
+  goToSetup();
+}
+
+function enterMainScreen() {
+  document.getElementById('setup-screen').style.display = 'none';
+  document.getElementById('main-screen').style.display  = 'block';
+}
+
+// ────────────────────────────────────
+// SIDEBAR
+// ────────────────────────────────────
+function renderSidebar() {
+  // Highlight overview button
+  const overviewBtn = document.getElementById('sidebar-overview-btn');
+  if (overviewBtn) overviewBtn.classList.toggle('active', S.activeUserId === '__summary__');
+  const goalsBtn = document.getElementById('sidebar-goals-btn');
+  if (goalsBtn) goalsBtn.classList.toggle('active', S.activeUserId === '__goals__');
+
+  const el = document.getElementById('sidebar-users');
+  const all = [S.pmUser, ...S.interns].filter(Boolean);
+
+  el.innerHTML = all.map((user, idx) => {
+    const id     = uid(user);
+    const isPM   = id === uid(S.pmUser);
+    const active = id === S.activeUserId;
+    const name   = user.displayName || user.name || id;
+    const initials = getInitials(name);
+    const colorCls = isPM ? '' : AVATAR_COLORS[(idx - 1) % AVATAR_COLORS.length];
+    const stale  = staleCountFor(id);
+    const role   = '';
+
+    let staleDot = '';
+    if (stale.red   > 0) staleDot = `<div class="stale-dot stale-dot-red">${stale.red + stale.amber}</div>`;
+    else if (stale.amber > 0) staleDot = `<div class="stale-dot stale-dot-amber">${stale.amber}</div>`;
+
+    const removeBtn = isPM ? '' :
+      `<button class="remove-btn" onclick="removeIntern(event,'${escAttr(id)}')" title="Remove">✕</button>`;
+
+    return `
+      <div class="sidebar-user-item ${active ? 'active' : ''}"
+           onclick="selectUser('${escAttr(id)}')">
+        <div class="user-avatar ${colorCls}">${initials}</div>
+        <div class="user-details">
+          <div class="user-display-name">${escHtml(name)}</div>
+          ${role ? `<div class="user-role">${role}</div>` : ''}
+        </div>
+        ${staleDot}
+        ${removeBtn}
+      </div>`;
+  }).join('');
+
+  const addBtn = document.getElementById('add-intern-btn');
+  addBtn.disabled = S.interns.length >= MAX_INTERNS;
+}
+
+// ────────────────────────────────────
+// ────────────────────────────────────
+// GLOBAL SEARCH
+// ────────────────────────────────────
+let _searchTimer = null;
+
+function handleGlobalSearch(query) {
+  const clearBtn = document.getElementById('search-clear-btn');
+  if (clearBtn) clearBtn.classList.toggle('show', query.length > 0);
+
+  clearTimeout(_searchTimer);
+  if (!query.trim()) {
+    // Restore previous view
+    if (S.activeUserId === '__search__') {
+      S.activeUserId = '__goals__';
+      renderSidebar();
+      renderGoalsView();
+    }
+    return;
+  }
+  // Debounce slightly for fast typers
+  _searchTimer = setTimeout(() => renderSearchResults(query.trim()), 150);
+}
+
+function clearSearch() {
+  const input = document.getElementById('global-search-input');
+  const clearBtn = document.getElementById('search-clear-btn');
+  if (input)    input.value = '';
+  if (clearBtn) clearBtn.classList.remove('show');
+  if (S.activeUserId === '__search__') {
+    S.activeUserId = '__goals__';
+    renderSidebar();
+    renderGoalsView();
+  }
+}
+
+function renderSearchResults(query) {
+  S.activeUserId = '__search__';
+  renderSidebar();
+
+  const q   = query.toLowerCase();
+  const all = [S.pmUser, ...S.interns].filter(Boolean);
+
+  // Build a map from ticketKey → owner user
+  const ownerMap = {};
+  all.forEach(user => {
+    const data = S.tickets[uid(user)];
+    if (!data) return;
+    const allIss = [...(data.todo||[]), ...(data.inProgress||[]),
+                   ...(data.inReview||[]), ...(data.done||[])];
+    allIss.forEach(iss => { ownerMap[iss.key] = user; });
+  });
+
+  // Search across all tickets in ticketMap
+  const matches = Object.values(S.ticketMap).filter(iss => {
+    const f = iss.fields || {};
+    return (
+      iss.key.toLowerCase().includes(q) ||
+      (f.summary    || '').toLowerCase().includes(q) ||
+      (f.status?.name || '').toLowerCase().includes(q) ||
+      (f.assignee?.displayName || '').toLowerCase().includes(q) ||
+      (f.priority?.name || '').toLowerCase().includes(q) ||
+      (f.issuetype?.name || '').toLowerCase().includes(q)
+    );
+  });
+
+  // Sort: stale first, then by most recent update
+  matches.sort((a, b) => {
+    const ha = hoursSince(a.fields?.updated);
+    const hb = hoursSince(b.fields?.updated);
+    const staleA = ha >= S.staleRedH ? 2 : ha >= S.staleAmberH ? 1 : 0;
+    const staleB = hb >= S.staleRedH ? 2 : hb >= S.staleAmberH ? 1 : 0;
+    if (staleB !== staleA) return staleB - staleA;
+    return hb - ha;
+  });
+
+  if (!matches.length) {
+    document.getElementById('main-content').innerHTML = `
+      <div class="search-results-view">
+        <div class="search-no-results">
+          <div class="search-no-results-icon">🔍</div>
+          No tickets matched <strong>"${escHtml(query)}"</strong><br>
+          <span style="font-size:12px;margin-top:6px;display:block">
+            Try a ticket key (e.g. RC-123), a word from the title, a name, or a status.
+          </span>
+        </div>
+      </div>`;
+    return;
+  }
+
+  const cards = matches.map(iss => {
+    const f       = iss.fields || {};
+    const h       = hoursSince(f.updated);
+    const staleC  = h >= S.staleRedH ? 'stale-red' : h >= S.staleAmberH ? 'stale-amber' : '';
+    const timeCls = h >= S.staleRedH ? 'red' : h >= S.staleAmberH ? 'amber' : '';
+    const timeIcon = timeCls === 'red' ? '🔴 ' : timeCls === 'amber' ? '🟡 ' : '';
+    const status   = f.status?.name || '';
+    const prio     = f.priority?.name || '';
+    const owner    = ownerMap[iss.key];
+    const ownerName = owner ? (owner.displayName || owner.name || uid(owner)) : 'Unknown';
+    const ownerInitials = getInitials(ownerName);
+
+    // Highlight matched term in title
+    const rawTitle = f.summary || '(no title)';
+    const hiTitle  = rawTitle.replace(
+      new RegExp(`(${escRegex(query)})`, 'gi'),
+      '<mark>$1</mark>'
+    );
+
+    return `
+      <div class="search-result-card ${staleC}" onclick="openTicketPanel('${escAttr(iss.key)}')">
+        <div class="search-result-key">${escHtml(iss.key)}</div>
+        <div class="search-result-body">
+          <div class="search-result-title">${hiTitle}</div>
+          <div class="search-result-meta">
+            <span class="search-result-person">
+              <span class="search-result-person-dot">${ownerInitials}</span>
+              ${escHtml(ownerName)}
+            </span>
+            <span class="search-result-status">${escHtml(status)}</span>
+            ${prio ? `<span class="priority-chip ${prioClass(prio)}">${escHtml(prio)}</span>` : ''}
+            <span class="search-result-time ${timeCls}">${timeIcon}${fmtHours(h)}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('main-content').innerHTML = `
+    <div class="search-results-view">
+      <div class="search-results-header">
+        <span>
+          <span class="search-results-count">${matches.length} result${matches.length !== 1 ? 's' : ''}</span>
+          for "${escHtml(query)}"
+        </span>
+        <span style="font-size:11px;color:var(--text-secondary)">Press Esc to clear</span>
+      </div>
+      ${cards}
+    </div>`;
+}
+
+// ────────────────────────────────────
+// SUMMARY VIEW
+// ────────────────────────────────────
+function selectSummary() {
+  S.activeUserId = '__summary__';
+  renderSidebar();
+  renderSummary();
+}
+
+// ────────────────────────────────────
+// RINGCENTRAL / GLIP
+// ────────────────────────────────────
+
+async function rc(apiPath, opts = {}) {
+  const url = '/rc' + apiPath;
+  const headers = {
+    'Content-Type': 'application/json',
+    'Accept':       'application/json',
+    'X-RC-Pat':           encodeURIComponent(S.rcPat),
+    'X-RC-Client-Id':     encodeURIComponent(S.rcClientId),
+    'X-RC-Client-Secret': encodeURIComponent(S.rcClientSecret),
+    ...(opts.headers || {}),
+  };
+  const res = await fetch(url, { ...opts, headers });
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error('HTTP ' + res.status + ' — ' + (body.slice(0, 300) || res.statusText));
+  }
+  if (res.status === 204) return null;
+  const text = await res.text();
+  return text ? JSON.parse(text) : null;
+}
+
+function selectGoals() {
+  S.activeUserId = '__goals__';
+  renderSidebar();
+  renderGoalsView();
+  // Auto-load if we have credentials and haven't loaded yet
+  if (S.rcPat && S.rcClientId && S.rcClientSecret && S.rcGroupId && !S.glipPosts.length && !S.glipLoading) {
+    loadGlipMessages();
+  }
+}
+
+async function loadGlipMessages() {
+  if (!S.rcPat || !S.rcClientId || !S.rcClientSecret || !S.rcGroupId) { renderGoalsView(); return; }
+  S.glipLoading = true;
+  renderGoalsView();
+  try {
+    // Fetch up to 100 recent messages (newest first)
+    const data = await rc(`/restapi/v1.0/glip/groups/${S.rcGroupId}/posts?recordCount=250`);
+    const posts = data.records || [];
+    S.glipPosts = posts;
+
+    // Resolve unique creator names
+    const ids = [...new Set(posts.map(p => p.creatorId).filter(Boolean))];
+    await Promise.all(ids.map(async id => {
+      if (S.glipPersons[id]) return;
+      try {
+        const person = await rc(`/restapi/v1.0/glip/persons/${id}`);
+        S.glipPersons[id] = [person.firstName, person.lastName].filter(Boolean).join(' ') || person.email || id;
+      } catch (_) { S.glipPersons[id] = id; }
+    }));
+  } catch (err) {
+    S.glipPosts = [{ _error: err.message }];
+  }
+  S.glipLoading = false;
+  renderGoalsView();
+}
+
+async function browseRCGroups() {
+  const pat      = document.getElementById('rc-pat')?.value.trim();
+  const clientId = document.getElementById('rc-client-id')?.value.trim();
+  const secret   = document.getElementById('rc-client-secret')?.value.trim();
+  if (!pat || !clientId || !secret) { alert('Please fill in JWT, Client ID, and Client Secret first.'); return; }
+  // Temporarily use these credentials for browsing
+  const saved       = S.rcPat;
+  const savedId     = S.rcClientId;
+  const savedSecret = S.rcClientSecret;
+  S.rcPat          = pat;
+  S.rcClientId     = clientId;
+  S.rcClientSecret = secret;
+  const listEl = document.getElementById('rc-groups-list');
+  listEl.style.display = 'block';
+  listEl.innerHTML = '<div style="padding:10px;font-size:12px;color:#6b778c;">Loading groups…</div>';
+  try {
+    const data = await rc('/restapi/v1.0/glip/groups?type=Team&recordCount=50');
+    const groups = data.records || [];
+    if (!groups.length) {
+      listEl.innerHTML = '<div style="padding:10px;font-size:12px;color:#6b778c;">No teams found.</div>';
+      return;
+    }
+    listEl.innerHTML = groups.map(g => `
+      <div style="padding:8px 12px;cursor:pointer;font-size:13px;border-bottom:1px solid #f4f5f7;display:flex;justify-content:space-between;align-items:center;"
+           onmouseenter="this.style.background='#f4f5f7'" onmouseleave="this.style.background=''"
+           onclick="document.getElementById('rc-group-id').value='${escAttr(g.id)}';document.getElementById('rc-groups-list').style.display='none';">
+        <span>${escHtml(g.name || '(unnamed)')}</span>
+        <span style="font-size:11px;color:#aaa;">${escHtml(g.id)}</span>
+      </div>`).join('');
+  } catch (err) {
+    const hint = err.message.includes('403') ? ' Missing permission — add "Team Messaging" scope to your app at developers.ringcentral.com → Apps → (your app) → Permissions.' :
+                 err.message.includes('401') ? ' Auth failed — check your JWT, Client ID, and Client Secret are correct.' : '';
+    listEl.innerHTML = `<div style="padding:10px;font-size:12px;color:#c0392b;">Error: ${escHtml(err.message)}${escHtml(hint)}</div>`;
+  }
+  S.rcPat          = saved;
+  S.rcClientId     = savedId;
+  S.rcClientSecret = savedSecret;
+}
+
+function getMondayOf(dateStr) {
+  const d = new Date(dateStr);
+  const day = d.getDay();
+  const diff = day === 0 ? -6 : 1 - day;
+  const mon = new Date(d);
+  mon.setDate(d.getDate() + diff);
+  mon.setHours(0, 0, 0, 0);
+  return mon;
+}
+
+// Strip HTML tags AND markdown bold/italic so classifiers see clean plain text.
+// Preserves newlines for line-by-line checks but collapses inline spaces.
+// Does NOT touch ![:Person](id) — those are not HTML tags.
+function toPlainText(s) {
+  return (s || '')
+    .replace(/<[^>]*>/g, ' ')            // remove <a ...>...</a> mention tags
+    .replace(/\*{1,2}|_{1,2}|~~|`/g, '') // remove markdown bold/italic/strike/code
+    .replace(/[ \t]+/g, ' ')             // collapse horizontal whitespace only
+    .trim();
+}
+
+function classifyPost(post) {
+  if (!post.text) return null;
+  const text = toPlainText(post.text);
+
+  // Skip short messages — casual replies, reactions, one-liners
+  if (text.length < 80) return null;
+
+  // Goal: proper goal assignment — must have ![:Person] mentions (assigned to specific interns)
+  // OR be a long announcement that prominently uses "goal/goals" as a heading word
+  const hasPersonMentions = /!\[:Person\]\(\d+\)/.test(post.text);
+  if (hasPersonMentions && /\bgoals?\b/i.test(text)) return 'goal';
+  if (!hasPersonMentions && /\bgoals?\b/i.test(text) && text.length > 200) return 'goal';
+
+  // Update: first line ends with "updates:" — the format interns use
+  const firstLine = text.split('\n')[0];
+  if (/updates?\s*:/i.test(firstLine)) return 'update';
+
+  // Update fallback: has Done/Pending/Blocked section structure
+  if (/\b(things we (have )?done|what'?s?\s+(done|pending|blocked)|pending\s*:|blocked?\s*:)/i.test(text)) return 'update';
+
+  return null;
+}
+
+function parseGoalsAndUpdates(posts) {
+  // Group by ISO week (Monday as start)
+  const weeks = {};
+  for (const post of posts) {
+    if (post._error) continue;
+    const type = classifyPost(post);
+    if (!type) continue;  // skip unrecognized messages
+    const mon = getMondayOf(post.creationTime);
+    const key = mon.toISOString().slice(0, 10);
+    if (!weeks[key]) weeks[key] = { monday: mon, goals: [], updates: [] };
+    if (type === 'goal')   weeks[key].goals.push(post);
+    else                   weeks[key].updates.push(post);
+  }
+  // Return sorted newest week first
+  return Object.entries(weeks)
+    .sort((a, b) => b[0].localeCompare(a[0]))
+    .map(([, w]) => w);
+}
+
+const DAY_NAMES = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTH_NAMES = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+function fmtDate(dateStr) {
+  const d = new Date(dateStr);
+  // Format in IST
+  return d.toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', weekday:'short', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', hour12: true });
+}
+
+// ── Intern progress ────────────────────────────────────────────
+// Tallies done/pending/blocked checklist items per intern across all their
+// update posts in a week. Uses parsedMessages overrides when available.
+// Known manager IDs — never include these in intern progress bars
+const MANAGER_IDS = new Set(['219559128']);
+
+function computeWeekProgress(week) {
+  const stats = {};   // { creatorId → { name, done, pending, blocked } }
+
+  for (const post of week.updates) {
+    const id = post.creatorId;
+    if (MANAGER_IDS.has(id)) continue;   // skip manager posts
+    if (!stats[id]) {
+      stats[id] = { name: S.glipPersons[id] || 'Intern', done: 0, pending: 0, blocked: 0 };
+    }
+
+    // Prefer Claude-parsed data when available
+    let items;
+    if (S.parsedMessages[post.id]) {
+      items = S.parsedMessages[post.id].items.map((item, idx) => ({
+        idx, autoChecked: item.status === 'done', blocked: item.status === 'blocked',
+      }));
+    } else {
+      items = parseToChecklist(post.text || '').map((item, idx) => ({ idx, ...item }));
+    }
+
+    for (const item of items) {
+      const checked = isChecked(post.id, item.idx, item.autoChecked);
+      if (checked)        stats[id].done++;
+      else if (item.blocked) stats[id].blocked++;
+      else                stats[id].pending++;
+    }
+  }
+
+  return Object.entries(stats).map(([id, s]) => ({ id, ...s }));
+}
+
+function toggleInternProgress(id) {
+  S.expandedIntern = S.expandedIntern === id ? null : id;
+  renderGoalsView();
+}
+
+function renderProgressSummary(week) {
+  const weekKey     = week.monday.toISOString().slice(0, 10);
+  const snap        = S.progressSnapshot;
+  const snapInterns = snap && snap.weekOf === weekKey ? snap.interns : null;
+
+  let rows;
+  if (snapInterns) {
+    rows = snapInterns.map(intern => ({
+      id:     intern.id,
+      name:   intern.name,
+      pct:    intern.overallPct,
+      goals:  intern.goals || [],
+      source: 'claude',
+    }));
+  } else {
+    const raw = computeWeekProgress(week);
+    rows = raw.map(p => {
+      const total = p.done + p.pending + p.blocked;
+      return { id: p.id, name: p.name,
+               pct: total > 0 ? Math.round(p.done / total * 100) : null,
+               done: p.done, pending: p.pending, blocked: p.blocked, source: 'auto' };
+    });
+  }
+
+  if (!rows.length) return '';
+
+  const sourceLabel = snapInterns
+    ? `<span style="font-size:10px;color:var(--green);font-weight:600;">✦ Claude · ${snap.updatedAt ? new Date(snap.updatedAt).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', hour12: true }) : ''}</span>`
+    : `<span style="font-size:10px;color:var(--text-secondary);">Auto-counted</span>`;
+
+  const rowsHTML = rows.map(p => {
+    const pct      = p.pct ?? 0;
+    const fillCls  = pct >= 70 ? 'fill-good' : (p.blocked > 0 && p.blocked >= (p.done||0)) ? 'fill-blocked' : '';
+    const expanded = S.expandedIntern === p.id;
+
+    // ── Collapsed row: name + bar + % + chevron ──
+    const rowHTML = `
+      <div class="progress-row" onclick="toggleInternProgress('${escAttr(p.id)}')">
+        <div class="progress-name">${escHtml(p.name)}</div>
+        <div class="progress-track">
+          <div class="progress-fill ${fillCls}" style="width:${pct}%"></div>
+        </div>
+        <div class="progress-pct">${p.pct !== null ? pct + '%' : '—'}</div>
+        <div class="progress-chevron">▶</div>
+      </div>`;
+
+    // ── Expanded detail: per-goal breakdown ──
+    let detailHTML = '';
+    if (p.source === 'claude' && p.goals.length) {
+      detailHTML = p.goals.map(g => {
+        const gPct     = g.pct ?? 0;
+        const dotCls   = g.status === 'done' ? 'dot-done' : g.status === 'blocked' ? 'dot-blocked' : 'dot-pending';
+        const fillColor= g.status === 'done' ? '#00875a' : g.status === 'blocked' ? '#e53e3e' : '#0052cc';
+        return `
+          <div class="goal-row">
+            <div class="goal-status-dot ${dotCls}"></div>
+            <div class="goal-text-wrap">
+              <div class="goal-text-label">${escHtml(g.text)}</div>
+              ${g.notes ? `<div class="goal-text-notes">${escHtml(g.notes)}</div>` : ''}
+            </div>
+            <div>
+              <div class="goal-pct-label">${gPct}%</div>
+              <div class="goal-row-bar-wrap">
+                <div class="goal-row-track">
+                  <div class="goal-row-fill" style="width:${gPct}%;background:${fillColor};height:100%;border-radius:99px;"></div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+      }).join('');
+    } else if (p.source === 'auto') {
+      detailHTML = `
+        <div style="font-size:12px;color:var(--text-secondary);padding:8px 0;">
+          ✅ ${p.done||0} done &nbsp;⏳ ${p.pending||0} pending &nbsp;🚫 ${p.blocked||0} blocked
+          <br><span style="font-size:11px;margin-top:4px;display:block;">Ask Claude to analyze for goal-level detail</span>
+        </div>`;
+    }
+
+    return `
+      <div class="progress-intern ${expanded ? 'is-expanded' : ''}">
+        ${rowHTML}
+        <div class="progress-detail">${detailHTML}</div>
+      </div>`;
+  }).join('');
+
+  return `
+    <div class="progress-summary">
+      <div class="progress-summary-title" style="display:flex;justify-content:space-between;align-items:center;">
+        <span>🏃 Team Progress this week</span>
+        ${sourceLabel}
+      </div>
+      ${rowsHTML}
+    </div>`;
+}
+
+// ── Checklist parsing ──────────────────────────────────────────
+// Extracts actionable items from a Glip message's text.
+// Returns an array of { text, autoChecked, blocked }.
+// Detect section headers like "Things we have done:", "What's pending:", "What's blocked:"
+// Returns 'done' | 'pending' | 'blocked' | null
+function detectSection(line) {
+  const lc = line.toLowerCase().trim();
+  // Must end with ':' or be a recognisable label line (short, no bullet prefix)
+  if (!/:\s*$/.test(lc) && lc.split(/\s+/).length > 6) return null;
+  if (/\b(done|we have done|completed|finished|accomplished)\b/.test(lc)) return 'done';
+  if (/\b(pending|to.?do|upcoming|in progress|next|will do)\b/.test(lc))  return 'pending';
+  if (/\b(blocked?|blocker|stuck|waiting on|on hold)\b/.test(lc))         return 'blocked';
+  return null;
+}
+
+function parseToChecklist(rawText) {
+  // Strip HTML tags and markdown bold/italic, preserve newlines for section detection.
+  // ![:Person](id) patterns are NOT HTML tags so they survive unchanged.
+  const text  = (rawText || '')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\*{1,2}|_{1,2}|~~|`/g, '')
+    .replace(/[ \t]+/g, ' ');
+  const lines = text.split('\n');
+  const items = [];
+  let currentSection    = null;   // 'done' | 'pending' | 'blocked' | null
+  let sectionHeaderSeen = false;  // did any section header appear?
+
+  for (const line of lines) {
+    const t = line.trim();
+    if (!t) continue;
+
+    // ── Person-mention lines: ![:Person](123456) Part 1: Shaping…
+    const personMatch = t.match(/^!\[:Person\]\((\d+)\)\s*(.+)/);
+    if (personMatch) {
+      const personId   = personMatch[1];
+      const itemText   = personMatch[2].trim();
+      const personName = S.glipPersons[personId] || `Person ${personId}`;
+      const lc = itemText.toLowerCase();
+      items.push({
+        text:        itemText,
+        personName,
+        autoChecked: /\b(done|completed?|finished|fixed|merged|shipped)\b|✅|✓/.test(lc),
+        blocked:     /\b(blocked?|blocker|stuck|waiting|pending review|on hold)\b|❌|🚫/.test(lc),
+      });
+      continue;
+    }
+
+    // ── Section header detection (e.g. "Things we have done:", "What's blocked:")
+    const sec = detectSection(t);
+    if (sec) {
+      currentSection    = sec;
+      sectionHeaderSeen = true;
+      continue;   // header itself is not an item
+    }
+
+    // ── Bullet / numbered items: - item  •  1. item  1) item  ✅ item
+    const m = t.match(/^(?:[-•*·]|\d+[.)]) (.+)/) ||
+              t.match(/^[✓✅☑️]\s*(.+)/);
+    if (m) {
+      const itemText = m[1].trim();
+      const lc = itemText.toLowerCase();
+      // Section header wins; fall back to per-item keyword detection
+      const autoChecked = currentSection === 'done'    ? true
+                        : currentSection === 'blocked' ? false
+                        : /\b(done|completed?|finished|fixed|merged|shipped)\b|✅|✓/.test(lc);
+      const blocked     = currentSection === 'blocked' ? true
+                        : /\b(blocked?|blocker|stuck|waiting|pending review|on hold)\b|❌|🚫/.test(lc);
+      items.push({ text: itemText, autoChecked, blocked });
+    }
+  }
+
+  // ── Fallback: no bullets at all — treat every non-first non-empty line as an item
+  if (items.length === 0) {
+    for (let i = 1; i < lines.length; i++) {
+      const t = lines[i].trim();
+      if (!t || t.length < 5) continue;
+      const lc = t.toLowerCase();
+      items.push({
+        text:        t,
+        autoChecked: /\b(done|completed?|finished|fixed|merged|shipped)\b|✅|✓/.test(lc),
+        blocked:     /\b(blocked?|blocker|stuck|waiting|on hold)\b|❌|🚫/.test(lc),
+      });
+    }
+  }
+
+  // ── If no section headers were found AND the heading is an "updates:" message,
+  // treat all items as done — intern is reporting what they've accomplished.
+  if (!sectionHeaderSeen && items.length > 0) {
+    const heading = toPlainText(rawText).split('\n')[0];
+    if (/updates?\s*:/i.test(heading)) {
+      items.forEach(item => { item.autoChecked = true; item.blocked = false; });
+    }
+  }
+
+  return items;
+}
+
+// Build a stable key for a checklist item so checked state survives refreshes
+function ckKey(postId, idx) { return `${postId}_${idx}`; }
+
+// Returns the effective checked state: user override wins, then autoChecked default
+function isChecked(postId, idx, autoChecked) {
+  const k = ckKey(postId, idx);
+  return k in S.checklistState ? S.checklistState[k] : autoChecked;
+}
+
+// Toggle one checkbox, persist immediately
+async function toggleChecklistItem(postId, idx, autoChecked) {
+  const k = ckKey(postId, idx);
+  const current = isChecked(postId, idx, autoChecked);
+  S.checklistState[k] = !current;
+  await saveSettings();       // writes checklistState to disk
+  renderGoalsView();
+}
+
+// Toggle the whole checklist mode on/off
+function toggleChecklistMode() {
+  S.checklistMode = !S.checklistMode;
+  renderGoalsView();
+}
+
+// Extract the first meaningful line as a clean heading.
+// e.g. "<a...>@Team</a>  **Accessibility updates**:" → "Accessibility updates"
+function extractHeading(rawText) {
+  const plain     = toPlainText(rawText || '');          // strips HTML + markdown
+  const firstLine = plain.split('\n')[0].trim();
+  // Remove leading @mention (e.g. "@Team ", "@Shubh ")
+  const withoutAt = firstLine.replace(/^@\S+\s*/i, '').trim();
+  if (!withoutAt || withoutAt.length < 4) return null;
+  if (/^(?:[-•*·]|\d+[.)]) /.test(withoutAt)) return null;  // bullet — skip
+  if (/^!\[:Person\]/.test(withoutAt)) return null;           // person line — skip
+  // Strip trailing colon and any emoji-only prefix
+  return withoutAt.replace(/:$/, '').trim();
+}
+
+// Render a post's items as interactive checkboxes
+function renderChecklist(post) {
+  // Prefer Claude-parsed data over auto-parser when available
+  const manual  = S.parsedMessages[post.id];
+  const items   = manual ? manual.items.map(i => ({
+    text:        i.text,
+    autoChecked: i.status === 'done',
+    blocked:     i.status === 'blocked',
+  })) : parseToChecklist(post.text || '');
+  const heading = manual ? manual.heading : extractHeading(post.text || '');
+
+  if (!items.length) {
+    return `<div class="no-items-hint">No list items detected — try prefixing lines with <code>-</code></div>`;
+  }
+
+  const headingHTML = heading
+    ? `<div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:8px;
+                   padding:6px 10px;background:#f0f4ff;border-radius:var(--radius);
+                   border-left:3px solid var(--primary);">
+         ${escHtml(heading)}
+       </div>`
+    : '';
+
+  // Group items by their implicit section for visual dividers
+  const SECTION_LABEL = { done: '✅ Done', pending: '⏳ Pending', blocked: '🚫 Blocked' };
+  let lastSection = null;
+
+  const rows = items.map((item, idx) => {
+    const section  = item.blocked ? 'blocked' : item.autoChecked ? 'done' : 'pending';
+    const divider  = section !== lastSection
+      ? `<div style="font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;
+                     letter-spacing:.06em;margin:${lastSection ? '10px' : '4px'} 0 4px;padding-left:2px;">
+           ${SECTION_LABEL[section] || ''}
+         </div>`
+      : '';
+    lastSection = section;
+
+    const checked      = isChecked(post.id, idx, item.autoChecked);
+    const cls          = checked ? 'item-done' : item.blocked ? 'item-blocked' : '';
+    const cbIcon       = checked ? '✓' : '';
+    const personBadge  = item.personName
+      ? `<span class="checklist-badge badge-person">${escHtml(item.personName)}</span>` : '';
+    const blockedBadge = (!checked && item.blocked)
+      ? `<span class="checklist-badge badge-blocked">Blocked</span>` : '';
+
+    return divider + `
+      <div class="checklist-item ${cls}" onclick="toggleChecklistItem('${escAttr(post.id)}',${idx},${item.autoChecked})">
+        <div class="checklist-cb">${cbIcon}</div>
+        ${personBadge}
+        <div class="checklist-text">${escHtml(item.text)}</div>
+        ${blockedBadge}
+      </div>`;
+  });
+
+  return `${headingHTML}<div class="checklist">${rows.join('')}</div>`;
+}
+
+function renderGoalsView() {
+  const el = document.getElementById('main-content');
+
+  // ── No RC credentials set up ──
+  if (!S.rcPat || !S.rcClientId || !S.rcClientSecret || !S.rcGroupId) {
+    el.innerHTML = `
+      <div class="goals-view">
+        <div class="goals-header">
+          <div>
+            <div class="goals-title">🎯 Goals &amp; Updates</div>
+            <div class="goals-subtitle">Connect RingCentral Glip to track weekly goals</div>
+          </div>
+        </div>
+        <div class="goals-setup-card">
+          <div style="font-size:32px">🎯</div>
+          <h3>Set up Goals Tracking</h3>
+          <p>Enter your RingCentral PAT and the Group ID of the chat where your manager posts weekly goals.</p>
+          <button class="btn btn-primary" style="width:100%" onclick="goToSetup()">⚙ Open Settings</button>
+        </div>
+      </div>`;
+    return;
+  }
+
+  // ── Loading ──
+  if (S.glipLoading) {
+    el.innerHTML = `
+      <div class="goals-view">
+        <div class="goals-header"><div class="goals-title">🎯 Goals &amp; Updates</div></div>
+        <div class="board-state"><div class="spinner"></div><span>Loading messages…</span></div>
+      </div>`;
+    return;
+  }
+
+  // ── Error ──
+  const errorPost = S.glipPosts.find(p => p._error);
+  if (errorPost) {
+    el.innerHTML = `
+      <div class="goals-view">
+        <div class="goals-header">
+          <div class="goals-title">🎯 Goals &amp; Updates</div>
+          <button class="btn-action" onclick="loadGlipMessages()">↻ Retry</button>
+        </div>
+        <div class="board-state"><div class="error-state">⚠ Could not load messages:<br>${escHtml(errorPost._error)}
+          ${errorPost._error.includes('401') ? '<br><br><strong>Invalid token.</strong> Go to ⚙ Settings → paste your JWT from developer.ringcentral.com → Console → (your name) → Credentials.' : ''}
+        </div></div>
+      </div>`;
+    return;
+  }
+
+  // ── Primary view: Intern Progress List ──
+  const snap = S.progressSnapshot;
+  const snapInterns = snap ? snap.interns : null;
+
+  if (snapInterns && snapInterns.length && S.goalsViewMode !== 'updates') {
+    // Recompute overallPct for each intern using weighted subtask formula
+    snapInterns.forEach(intern => {
+      const allGoals = (intern.tracks || []).flatMap(t => t.goals || []);
+      allGoals.forEach(g => {
+        const subs = g.subtasks || [];
+        if (subs.length > 0) {
+          const tw = subs.reduce((s, t) => s + (t.weight || 1), 0);
+          const dw = subs.reduce((s, t) => t.done ? s + (t.weight || 1) : s, 0);
+          g.pct = tw > 0 ? Math.round((dw / tw) * 100) : 0;
+        }
+      });
+      const pcts = allGoals.map(g => g.pct ?? 0);
+      intern.overallPct = pcts.length ? Math.round(pcts.reduce((a,b) => a+b, 0) / pcts.length) : 0;
+    });
+    // Compute team average
+    const teamAvg = Math.round(snapInterns.reduce((s, i) => s + (i.overallPct || 0), 0) / snapInterns.length);
+    const daily = snap.daily || {};
+
+    // ── Alert banners: No Update & Lagging ──
+    const noUpdateAlerts = (daily.noUpdate || []).filter(n => n.daysSilent >= 3).map(n => `
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:#fff5f5;border:1px solid var(--red-border);border-radius:var(--radius);margin-bottom:8px;">
+        <span style="font-size:18px;">🔇</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:var(--red);">${escHtml(n.intern)} — No update for ${n.daysSilent} day${n.daysSilent !== 1 ? 's' : ''}</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">${escHtml(n.reason)}</div>
+        </div>
+      </div>`).join('');
+
+    const laggingAlerts = (daily.lagging || []).map(l => `
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);margin-bottom:8px;">
+        <span style="font-size:18px;">⚠️</span>
+        <div style="flex:1;">
+          <div style="font-size:13px;font-weight:700;color:var(--amber);">${escHtml(l.intern)} — ${l.pct}%</div>
+          <div style="font-size:11px;color:var(--text-secondary);margin-top:2px;">${escHtml(l.concern)}</div>
+        </div>
+      </div>`).join('');
+
+    const alertsHTML = (noUpdateAlerts || laggingAlerts) ? `
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">Needs Attention</div>
+        ${noUpdateAlerts}${laggingAlerts}
+      </div>` : '';
+
+    // ── What's New Today feed ──
+    const newItems = daily.newToday || [];
+    const newTodayHTML = newItems.length ? `
+      <div style="margin-bottom:18px;">
+        <div style="font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;">What's New Today · ${escHtml(daily.date || '')}</div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-sm);">
+          ${newItems.map((item, i) => {
+            const typeIcon = item.type === 'completed' ? '✅' : item.type === 'new_task' ? '🆕' : '📈';
+            const typeBg = item.type === 'completed' ? '#e3fcef' : item.type === 'new_task' ? '#e8f0ff' : '#f7f8fa';
+            return `<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;${i < newItems.length - 1 ? 'border-bottom:1px solid #f0f1f4;' : ''}">
+              <span style="font-size:14px;">${typeIcon}</span>
+              <div style="flex:1;font-size:13px;color:var(--text);">
+                <span style="font-weight:700;">${escHtml(item.intern)}</span>
+                <span style="color:var(--text-secondary);"> — </span>
+                ${escHtml(item.text)}
+              </div>
+              <span style="font-size:10px;padding:2px 8px;border-radius:99px;background:${typeBg};font-weight:600;color:${item.type === 'completed' ? '#00875a' : item.type === 'new_task' ? '#0052cc' : '#6b778c'};text-transform:uppercase;">${item.type === 'completed' ? 'Done' : item.type === 'new_task' ? 'New' : 'Update'}</span>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>` : '';
+
+    // ── Intern cards ──
+    const internsHTML = snapInterns.map(intern => {
+      const pct = intern.overallPct || 0;
+      const prev = intern.prevPct ?? pct;
+      const delta = pct - prev;
+      const expanded = S.expandedIntern === intern.id;
+
+      // Flatten all goals from tracks (or fall back to flat goals array)
+      const allGoals = intern.tracks
+        ? intern.tracks.flatMap(t => t.goals || [])
+        : (intern.goals || []);
+      const statusCounts = { done: 0, in_progress: 0, pending: 0, blocked: 0 };
+      allGoals.forEach(g => { statusCounts[g.status] = (statusCounts[g.status] || 0) + 1; });
+      const changedCount = allGoals.filter(g => g.changedToday).length;
+
+      // Track pills for collapsed view
+      const trackPills = (intern.tracks || []).map(t => {
+        const tGoals = t.goals || [];
+        const tDone = tGoals.filter(g => g.status === 'done').length;
+        const tTotal = tGoals.length;
+        const tAllDone = tDone === tTotal;
+        return `<span style="font-size:10px;padding:2px 8px;border-radius:99px;background:${t.color}18;color:${t.color};font-weight:600;border:1px solid ${t.color}30;${tAllDone ? 'opacity:0.5;' : ''}">${escHtml(t.name)} ${tDone}/${tTotal}</span>`;
+      }).join('');
+
+      // Last activity relative label
+      let lastActLabel = '';
+      if (intern.lastActivity) {
+        const diffH = Math.round((Date.now() - new Date(intern.lastActivity).getTime()) / 3600000);
+        if (diffH < 1) lastActLabel = 'Active now';
+        else if (diffH < 24) lastActLabel = diffH + 'h ago';
+        else { const d = Math.floor(diffH/24); lastActLabel = d + ' day' + (d>1?'s':'') + ' ago'; }
+      }
+
+      // Delta badge
+      const deltaBadge = delta !== 0 ? `<span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-left:6px;background:${delta > 0 ? '#e3fcef' : '#fff5f5'};color:${delta > 0 ? '#00875a' : '#c0392b'};">${delta > 0 ? '+' : ''}${delta}%</span>` : '';
+
+      // ── Per-track detail (shown on click) ──
+      let detailContent = '';
+      if (intern.tracks && intern.tracks.length) {
+        detailContent = intern.tracks.map(track => {
+          const tGoals = track.goals || [];
+          const tDone = tGoals.filter(g => g.status === 'done').length;
+          // Recompute each goal pct using weighted subtask formula before averaging
+          tGoals.forEach(g => {
+            const subs = g.subtasks || [];
+            if (subs.length > 0) {
+              const tw = subs.reduce((s, t) => s + (t.weight || 1), 0);
+              const dw = subs.reduce((s, t) => t.done ? s + (t.weight || 1) : s, 0);
+              g.pct = tw > 0 ? Math.round((dw / tw) * 100) : 0;
+            }
+          });
+          const tPct = tGoals.length ? Math.round(tGoals.reduce((s,g) => s + (g.pct||0), 0) / tGoals.length) : 0;
+
+          // Render a single goal row
+          const renderGoalRow = (g) => {
+            // Auto-compute pct from subtasks using WEIGHTED formula
+            let gPct = g.pct ?? 0;
+            const subs = g.subtasks || [];
+            let totalWeight = 0, doneWeight = 0;
+            if (subs.length > 0) {
+              totalWeight = subs.reduce((s, t) => s + (t.weight || 1), 0);
+              doneWeight = subs.reduce((s, t) => t.done ? s + (t.weight || 1) : s, 0);
+              gPct = totalWeight > 0 ? Math.round((doneWeight / totalWeight) * 100) : 0;
+            }
+            const statusIcon = g.status === 'done' ? '✅' : g.status === 'blocked' ? '🚫' : g.status === 'in_progress' ? '🔵' : g.status === 'on_hold' ? '⏸️' : '⏳';
+            const fillColor = g.status === 'done' ? '#00875a' : g.status === 'blocked' ? '#e53e3e' : g.status === 'in_progress' ? '#0052cc' : g.status === 'on_hold' ? '#a0aec0' : '#d97706';
+            const statusLabel = g.status === 'done' ? 'Done' : g.status === 'blocked' ? 'Blocked' : g.status === 'in_progress' ? 'In Progress' : g.status === 'on_hold' ? 'On Hold' : 'Pending';
+            const todayDot = g.changedToday ? '<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#f59e0b;margin-left:6px;" title="Updated today"></span>' : '';
+
+            // Subtask checklist with weights (compact)
+            let subtaskHTML = '';
+            if (subs.length > 0) {
+              const doneSubs = subs.filter(s => s.done).length;
+              const goalId = escAttr(g.text).replace(/[^a-zA-Z0-9]/g, '_').slice(0, 40);
+              subtaskHTML = `
+                <div style="margin-top:8px;padding:8px 10px;background:#f8f9fb;border-radius:6px;border:1px solid #e8eaf0;">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;">
+                    <span style="font-size:10px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.04em;">Subtasks ${doneSubs}/${subs.length}</span>
+                    <span style="font-size:10px;color:var(--text-secondary);">${doneWeight}/${totalWeight} pts = <strong style="color:${fillColor};">${gPct}%</strong></span>
+                  </div>
+                  ${subs.map((s, si) => {
+                    const w = s.weight || 1;
+                    const wBg = w <= 1 ? '#e1f5ee' : w <= 2 ? '#e6f1fb' : w <= 4 ? '#faeeda' : '#fcebeb';
+                    const wTxt = w <= 1 ? '#085041' : w <= 2 ? '#0c447c' : w <= 4 ? '#633806' : '#791f1f';
+                    return `<div style="display:flex;align-items:center;gap:5px;padding:2px 0;font-size:11px;color:${s.done ? '#888' : '#333'};">
+                      <span style="flex-shrink:0;width:14px;text-align:center;font-size:11px;">${s.done ? '☑' : '☐'}</span>
+                      <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;${s.done ? 'text-decoration:line-through;' : ''}">${escHtml(s.text)}</span>
+                      ${s.phase ? `<span style="flex-shrink:0;font-size:8px;width:14px;text-align:center;color:${s.phase === 'uphill' ? '#d97706' : '#00875a'};">${s.phase === 'uphill' ? '▲' : '▼'}</span>` : ''}
+                      <select data-goal="${goalId}" data-sub="${si}" onchange="updateSubWeight(this)" style="flex-shrink:0;width:36px;font-size:10px;padding:0 2px;height:20px;border:1px solid #dfe1e6;border-radius:3px;background:${wBg};color:${wTxt};cursor:pointer;text-align:center;-webkit-appearance:none;-moz-appearance:none;appearance:none;">
+                        ${[1,2,3,4,5].map(v => `<option value="${v}" ${w===v ? 'selected' : ''}>${v}</option>`).join('')}
+                      </select>
+                    </div>`;
+                  }).join('')}
+                </div>`;
+            }
+
+            // Deadline warning
+            let deadlineHTML = '';
+            if (g.deadline) {
+              const dl = new Date(g.deadline);
+              const now = new Date();
+              const overdue = now > dl && g.status !== 'done';
+              deadlineHTML = `<span style="font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;margin-left:4px;background:${overdue ? '#fff5f5' : '#fffbeb'};color:${overdue ? '#c0392b' : '#d97706'};border:1px solid ${overdue ? '#fc8181' : '#fbbf24'};">${overdue ? '⚠️ OVERDUE' : '📅'} ${g.deadline}</span>`;
+            }
+
+            return `
+              <div class="goal-row" style="${g.changedToday ? 'background:#fffdf5;' : ''}${g.status === 'blocked' ? 'border-left:3px solid #e53e3e;' : ''}">
+                <div class="goal-status-dot" style="background:${fillColor}"></div>
+                <div class="goal-text-wrap">
+                  <div class="goal-text-label">${escHtml(g.text)}${todayDot}${deadlineHTML}</div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-top:3px;">
+                    <span style="font-size:10px;font-weight:600;color:${fillColor};text-transform:uppercase;letter-spacing:.03em;">${statusIcon} ${statusLabel}</span>
+                    ${g.changedToday ? '<span style="font-size:9px;font-weight:700;color:#d97706;background:#fef3c7;padding:1px 6px;border-radius:99px;">UPDATED TODAY</span>' : ''}
+                  </div>
+                  ${g.notes ? `<div class="goal-text-notes" style="margin-top:6px;padding:8px 10px;background:#f7f8fa;border-radius:6px;border-left:3px solid ${fillColor};font-size:12px;line-height:1.5;color:#444;">${escHtml(g.notes)}</div>` : ''}
+                  ${subtaskHTML}
+                </div>
+                <div style="text-align:right;min-width:65px;">
+                  <div class="goal-pct-label" style="font-size:13px;font-weight:700;color:${fillColor};">${gPct}%</div>
+                  <div class="goal-row-bar-wrap" style="margin-top:4px;">
+                    <div class="goal-row-track" style="width:60px;">
+                      <div class="goal-row-fill" style="width:${gPct}%;background:${fillColor};height:100%;border-radius:99px;"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>`;
+          };
+
+          // Split: blocked & pending first, then in_progress, on_hold, then done in dropdown
+          const blockedGoals = tGoals.filter(g => g.status === 'blocked');
+          const pendingGoals = tGoals.filter(g => g.status === 'pending');
+          const inProgressGoals = tGoals.filter(g => g.status === 'in_progress');
+          const onHoldGoals = tGoals.filter(g => g.status === 'on_hold');
+          const doneGoals = tGoals.filter(g => g.status === 'done');
+
+          const activeRows = [...blockedGoals, ...pendingGoals, ...inProgressGoals, ...onHoldGoals].map(renderGoalRow).join('');
+          const doneRows = doneGoals.map(renderGoalRow).join('');
+
+          const goalRows = activeRows + (doneGoals.length > 0
+            ? `<details style="margin-top:6px;">
+                <summary style="cursor:pointer;font-size:11px;font-weight:600;color:var(--text-secondary);padding:8px 0 4px;user-select:none;list-style:none;display:flex;align-items:center;gap:6px;">
+                  <span style="font-size:10px;transition:transform .2s;display:inline-block;" class="done-chevron">▶</span>
+                  <span>Done tasks (${doneGoals.length})</span>
+                  <span style="font-size:10px;color:#00875a;">✅</span>
+                </summary>
+                <div style="opacity:0.7;">${doneRows}</div>
+              </details>`
+            : '');
+
+          return `
+            <div style="margin-bottom:16px;">
+              <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+                <div style="width:4px;height:20px;border-radius:2px;background:${track.color};"></div>
+                <span style="font-size:13px;font-weight:700;color:var(--text);">${escHtml(track.name)}</span>
+                <span style="font-size:11px;color:var(--text-secondary);">${tDone}/${tGoals.length} done</span>
+                <div style="flex:1;"></div>
+                <span style="font-size:12px;font-weight:700;color:${track.color};">${tPct}%</span>
+                <div style="width:50px;height:5px;background:#e8eaf0;border-radius:99px;overflow:hidden;">
+                  <div style="width:${tPct}%;height:100%;border-radius:99px;background:${track.color};"></div>
+                </div>
+              </div>
+              ${goalRows}
+            </div>`;
+        }).join('');
+      } else {
+        // Fallback for flat goals (backward compat)
+        detailContent = allGoals.map(g => {
+          const gPct = g.pct ?? 0;
+          const fillColor = g.status === 'done' ? '#00875a' : g.status === 'blocked' ? '#e53e3e' : g.status === 'in_progress' ? '#0052cc' : '#a0aec0';
+          return `<div class="goal-row"><div class="goal-status-dot" style="background:${fillColor}"></div><div class="goal-text-wrap"><div class="goal-text-label">${escHtml(g.text)}</div></div><div style="font-size:13px;font-weight:700;color:${fillColor};">${gPct}%</div></div>`;
+        }).join('');
+      }
+
+      return `
+        <div class="intern-progress-card ${expanded ? 'is-expanded' : ''}" style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);margin-bottom:12px;overflow:hidden;box-shadow:var(--shadow-sm);transition:box-shadow .2s;">
+          <div class="intern-progress-header" onclick="toggleInternProgress('${escAttr(intern.id)}')" style="display:flex;align-items:center;padding:16px 20px;cursor:pointer;gap:16px;transition:background .15s;">
+            <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,#0052cc,#36b37e);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:16px;flex-shrink:0;">
+              ${escHtml(intern.name.charAt(0))}
+            </div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;">
+                ${escHtml(intern.name)}${deltaBadge}
+                ${changedCount > 0 ? '<span style="font-size:10px;color:#d97706;margin-left:6px;" title="Goals updated today">● ' + changedCount + ' updated</span>' : ''}
+              </div>
+              <div style="display:flex;gap:6px;font-size:11px;color:var(--text-secondary);flex-wrap:wrap;align-items:center;">
+                ${trackPills}
+                ${lastActLabel ? '<span style="color:var(--text-secondary);margin-left:4px;">· ' + lastActLabel + '</span>' : ''}
+              </div>
+            </div>
+            <div style="text-align:right;min-width:90px;">
+              <div style="font-size:22px;font-weight:800;color:${pct >= 70 ? '#00875a' : pct >= 40 ? '#0052cc' : '#d97706'};">${pct}%</div>
+            </div>
+            <div style="width:120px;flex-shrink:0;">
+              <div style="height:8px;background:#e8eaf0;border-radius:99px;overflow:hidden;">
+                <div style="width:${pct}%;height:100%;border-radius:99px;background:${pct >= 70 ? 'linear-gradient(90deg,#00875a,#36b37e)' : pct >= 40 ? 'linear-gradient(90deg,#0052cc,#4c9aff)' : 'linear-gradient(90deg,#d97706,#f59e0b)'};transition:width .4s;"></div>
+              </div>
+            </div>
+            <div style="font-size:12px;color:var(--text-secondary);transition:transform .2s;transform:rotate(${expanded ? '90' : '0'}deg);flex-shrink:0;">▶</div>
+          </div>
+          <div style="display:${expanded ? 'block' : 'none'};border-top:1px solid var(--border);padding:16px 20px;background:#fafbfc;">
+            <div style="font-size:12px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:14px;">Tracks — why ${pct}%</div>
+            ${detailContent}
+          </div>
+        </div>`;
+    }).join('');
+
+    const istOpts = { timeZone: 'Asia/Kolkata', month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', hour12: true };
+    const snapDate = snap.updatedAt ? new Date(snap.updatedAt).toLocaleString('en-IN', istOpts) : '';
+    const fetchDate = snap.lastFetched ? new Date(snap.lastFetched).toLocaleString('en-IN', istOpts) : null;
+
+    el.innerHTML = `
+      <div class="goals-view">
+        <div class="goals-header">
+          <div>
+            <div class="goals-title">🏃 Team Progress</div>
+            <div class="goals-subtitle">Week of ${snap.weekOf || '—'} · Analyzed ${snapDate}${fetchDate ? ' · <span style="color:var(--green);font-weight:600;">Last fetched ' + fetchDate + '</span>' : ''}</div>
+          </div>
+          <div style="display:flex;gap:8px;align-items:center;">
+            <div style="text-align:right;">
+              <div style="font-size:11px;color:var(--text-secondary);">Team Average</div>
+              <div style="font-size:20px;font-weight:800;color:var(--primary);">${teamAvg}%</div>
+            </div>
+            <button class="btn-action" onclick="loadGlipMessages()">↻ Refresh</button>
+            <button class="btn-action" onclick="S.goalsViewMode='updates';renderGoalsView();">📋 Updates</button>
+            <button class="btn-action" onclick="goToSetup()">⚙</button>
+          </div>
+        </div>
+        ${alertsHTML}
+        ${newTodayHTML}
+        <div style="font-size:11px;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;">Team Members</div>
+        ${internsHTML}
+      </div>`;
+    return;
+  }
+
+  // ── Fallback: show raw messages view (also used when "Updates" is clicked) ──
+  if (!S.glipPosts.length && !snapInterns) {
+    el.innerHTML = `
+      <div class="goals-view">
+        <div class="goals-header">
+          <div class="goals-title">🎯 Goals &amp; Updates</div>
+          <button class="btn-action" onclick="loadGlipMessages()">↻ Load Messages</button>
+        </div>
+        <div class="board-state" style="color:#aaa">No messages loaded yet.</div>
+      </div>`;
+    return;
+  }
+
+  // Show updates/messages view
+  const weeks = parseGoalsAndUpdates(S.glipPosts);
+
+  const weeksHTML = weeks.map(week => {
+    const mon = week.monday;
+    const weekLabel = `Week of ${MONTH_NAMES[mon.getMonth()]} ${mon.getDate()}, ${mon.getFullYear()}`;
+
+    const goalsHTML = week.goals.length
+      ? week.goals.map(p => {
+          const name = S.glipPersons[p.creatorId] || p.creatorId || 'Manager';
+          const bodyHTML = S.checklistMode
+            ? renderChecklist(p)
+            : `<div class="goal-text">${escHtml(p.text || '(no text)')}</div>`;
+          return `
+            <div class="goal-card">
+              <div class="goal-card-header">
+                <span class="goal-badge">🎯 Goal</span>
+                <span class="goal-author">${escHtml(name)} · ${fmtDate(p.creationTime)}</span>
+              </div>
+              ${bodyHTML}
+            </div>`;
+        }).join('')
+      : `<div class="no-updates">No goal posts found this week</div>`;
+
+    const updatesHTML = week.updates.length
+      ? `<div class="updates-list">` + week.updates.map(p => {
+          const name = S.glipPersons[p.creatorId] || p.creatorId || '?';
+          const day  = DAY_NAMES[new Date(p.creationTime).getDay()];
+          const bodyHTML = S.checklistMode
+            ? renderChecklist(p)
+            : `<div class="update-text">${escHtml(p.text || '')}</div>`;
+          return `
+            <div class="update-row">
+              <span class="update-day">${day}</span>
+              <div style="flex:1">
+                <div class="update-author">${escHtml(name)} · ${fmtDate(p.creationTime)}</div>
+                ${bodyHTML}
+              </div>
+            </div>`;
+        }).join('') + `</div>`
+      : `<div class="no-updates" style="padding-left:4px">No daily updates posted this week yet</div>`;
+
+    return `
+      <div class="week-block">
+        <div class="week-label">${escHtml(weekLabel)}</div>
+        ${goalsHTML}
+        <div style="font-size:11px;font-weight:600;color:var(--text-secondary);margin:10px 0 6px;text-transform:uppercase;letter-spacing:0.05em;">Daily Updates</div>
+        ${updatesHTML}
+      </div>`;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="goals-view">
+      <div class="goals-header">
+        <div>
+          <div class="goals-title">📋 Goals &amp; Updates</div>
+          <div class="goals-subtitle">Group ID: ${escHtml(S.rcGroupId)} · ${S.glipPosts.length} messages · ${weeks.length} week${weeks.length !== 1 ? 's' : ''}</div>
+        </div>
+        <div style="display:flex;gap:8px;">
+          ${snapInterns ? '<button class="btn-action" style="background:#e8f0ff;border-color:#0052cc;color:#0052cc;font-weight:600;" onclick="S.goalsViewMode=\'progress\';renderGoalsView();">🏃 Progress</button>' : ''}
+          <button class="btn-action" onclick="loadGlipMessages()">↻ Refresh</button>
+          <button class="btn-action" onclick="toggleChecklistMode()"
+            style="${S.checklistMode ? 'background:#e8f4ec;border-color:#00875a;color:#00875a;font-weight:600;' : ''}">
+            ${S.checklistMode ? '✓ Checklist On' : '✨ Parse Checklist'}
+          </button>
+          <button class="btn-action" onclick="goToSetup()">⚙</button>
+        </div>
+      </div>
+      ${weeksHTML || '<div class="board-state" style="color:#aaa">No weekday messages found in the loaded posts.</div>'}
+    </div>`;
+}
+
+function renderSummary() {
+  const all = [S.pmUser, ...S.interns].filter(Boolean);
+  const now = Date.now();
+
+  // ── Person cards ──
+  const personCardsHTML = all.map(user => {
+    const id    = uid(user);
+    const data  = S.tickets[id];
+    const name  = user.displayName || user.name || id;
+    const isPM  = id === uid(S.pmUser);
+    const initials = getInitials(name);
+    const colorCls = isPM ? '' : AVATAR_COLORS[(all.indexOf(user) - 1) % AVATAR_COLORS.length];
+    const isLoading = S.loading[id];
+
+    if (!data && isLoading) {
+      return `<div class="person-card">
+        <div class="person-card-top">
+          <div class="person-card-avatar ${colorCls}">${initials}</div>
+          <div><div class="person-card-name">${escHtml(name)}</div></div>
+        </div>
+        <div style="color:var(--text-secondary);font-size:12px">Loading…</div>
+      </div>`;
+    }
+    if (!data) {
+      return `<div class="person-card" onclick="selectUser('${escAttr(id)}')">
+        <div class="person-card-top">
+          <div class="person-card-avatar ${colorCls}">${initials}</div>
+          <div><div class="person-card-name">${escHtml(name)}</div></div>
+        </div>
+        <div style="color:var(--text-secondary);font-size:12px">Click to load</div>
+      </div>`;
+    }
+
+    const todo   = data.todo?.length   || 0;
+    const inProg = data.inProgress?.length || 0;
+    const inRev  = data.inReview?.length   || 0;
+    const done   = data.done?.length   || 0;
+    const total  = todo + inProg + inRev + done;
+    const pct    = total > 0 ? Math.round(done / total * 100) : 0;
+
+    const stale  = staleCountFor(id);
+    const staleLine = stale.red > 0
+      ? `<div class="person-stale-line red">🔴 ${stale.red + stale.amber} stale ticket${stale.red + stale.amber !== 1 ? 's' : ''}</div>`
+      : stale.amber > 0
+      ? `<div class="person-stale-line amber">🟡 ${stale.amber} stale ticket${stale.amber !== 1 ? 's' : ''}</div>`
+      : '';
+
+    const cardBorder = stale.red > 0 ? 'has-stale-red' : stale.amber > 0 ? 'has-stale-amber' : '';
+
+    return `
+      <div class="person-card ${cardBorder}" onclick="selectUser('${escAttr(id)}')">
+        <div class="person-card-top">
+          <div class="person-card-avatar ${colorCls}">${initials}</div>
+          <div>
+            <div class="person-card-name">${escHtml(name)}</div>
+            ${isPM ? '<div class="person-card-you">You</div>' : ''}
+          </div>
+        </div>
+        <div class="person-sprint">
+          <div class="person-sprint-label">
+            <span>Sprint</span>
+            <span>${done} / ${total} done</span>
+          </div>
+          <div class="person-sprint-track">
+            <div class="person-sprint-fill" style="width:${pct}%"></div>
+          </div>
+        </div>
+        <div class="person-counts">
+          <span class="count-chip count-todo">${todo} To Do</span>
+          <span class="count-chip count-inprog">${inProg} In Progress</span>
+          ${inRev > 0 ? `<span class="count-chip count-review">${inRev} In Review</span>` : ''}
+          <span class="count-chip count-done">${done} Done</span>
+        </div>
+        ${staleLine}
+      </div>`;
+  }).join('');
+
+  // ── Stale tickets panel ──
+  const allStale = [];
+  all.forEach(user => {
+    const id   = uid(user);
+    const data = S.tickets[id];
+    if (!data) return;
+    const open = [...(data.todo||[]), ...(data.inProgress||[]), ...(data.inReview||[])];
+    open.forEach(iss => {
+      const h = hoursSince(iss.fields?.updated);
+      if (h >= S.staleAmberH) allStale.push({ iss, user, h });
+    });
+  });
+  allStale.sort((a, b) => b.h - a.h);
+
+  const staleRowsHTML = allStale.length
+    ? allStale.map(({ iss, user, h }) => {
+        const timeCls = h >= S.staleRedH ? 'red' : 'amber';
+        const icon    = h >= S.staleRedH ? '🔴' : '🟡';
+        return `
+          <div class="summary-row" onclick="openTicketPanel('${escAttr(iss.key)}')">
+            <div class="summary-row-key">${escHtml(iss.key)}</div>
+            <div class="summary-row-body">
+              <div class="summary-row-title">${escHtml(iss.fields?.summary || '')}</div>
+              <div class="summary-row-meta">
+                <span>${escHtml(user.displayName || user.name || uid(user))}</span>
+                <span>${escHtml(iss.fields?.status?.name || '')}</span>
+              </div>
+            </div>
+            <div class="summary-row-time ${timeCls}">${icon} ${fmtHours(h)}</div>
+          </div>`;
+      }).join('')
+    : '<div class="summary-empty">✅ No stale tickets right now</div>';
+
+  // ── Recent activity panel ──
+  const allTickets = [];
+  all.forEach(user => {
+    const id   = uid(user);
+    const data = S.tickets[id];
+    if (!data) return;
+    const all2 = [...(data.todo||[]), ...(data.inProgress||[]), ...(data.inReview||[]), ...(data.done||[])];
+    all2.forEach(iss => allTickets.push({ iss, user }));
+  });
+  // Deduplicate by key (a ticket shared between PM+intern could appear twice)
+  const seen = new Set();
+  const unique = allTickets.filter(({ iss }) => {
+    if (seen.has(iss.key)) return false;
+    seen.add(iss.key);
+    return true;
+  });
+  unique.sort((a, b) => new Date(b.iss.fields?.updated) - new Date(a.iss.fields?.updated));
+  const recent = unique.slice(0, 20);
+
+  const recentRowsHTML = recent.length
+    ? recent.map(({ iss, user }) => {
+        const h       = hoursSince(iss.fields?.updated);
+        const status  = iss.fields?.status?.name || '';
+        return `
+          <div class="summary-row" onclick="openTicketPanel('${escAttr(iss.key)}')">
+            <div class="summary-row-key">${escHtml(iss.key)}</div>
+            <div class="summary-row-body">
+              <div class="summary-row-title">${escHtml(iss.fields?.summary || '')}</div>
+              <div class="summary-row-meta">
+                <span>${escHtml(user.displayName || user.name || uid(user))}</span>
+                <span>${escHtml(status)}</span>
+              </div>
+            </div>
+            <div class="summary-row-time">${fmtHours(h)}</div>
+          </div>`;
+      }).join('')
+    : '<div class="summary-empty">No tickets loaded yet</div>';
+
+  const totalStale = allStale.length;
+
+  document.getElementById('main-content').innerHTML = `
+    <div class="summary-view">
+      <div class="summary-header">
+        <div>
+          <div class="summary-title">Team Overview</div>
+          <div class="summary-subtitle">${all.length} people · ${unique.length} tickets tracked</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end;">
+          <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-secondary);">
+            <span title="Amber warning threshold">🟡</span>
+            <input type="number" id="stale-amber-input" min="1" max="999" value="${S.staleAmberH}"
+              style="width:52px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;font-size:12px;text-align:center;"
+              onchange="updateStaleThreshold('amber', this.value)"
+              title="Hours before a ticket turns amber (warning)">
+            <span style="color:#aaa;">h</span>
+            <span title="Red critical threshold" style="margin-left:4px;">🔴</span>
+            <input type="number" id="stale-red-input" min="1" max="999" value="${S.staleRedH}"
+              style="width:52px;padding:3px 6px;border:1px solid var(--border);border-radius:4px;font-size:12px;text-align:center;"
+              onchange="updateStaleThreshold('red', this.value)"
+              title="Hours before a ticket turns red (critical)">
+            <span style="color:#aaa;">h</span>
+          </div>
+          <button class="btn-action" onclick="refreshAllUsers()">↻ Refresh All</button>
+        </div>
+      </div>
+
+      <div class="person-cards">${personCardsHTML}</div>
+
+      <div class="summary-panels">
+        <div class="summary-panel">
+          <div class="summary-panel-header">
+            ⚠ Stale Tickets
+            <span class="panel-count-badge ${totalStale > 0 ? 'red' : ''}">${totalStale}</span>
+          </div>
+          <div class="summary-panel-body">${staleRowsHTML}</div>
+        </div>
+        <div class="summary-panel">
+          <div class="summary-panel-header">
+            📋 Recent Activity
+            <span class="panel-count-badge">${recent.length}</span>
+          </div>
+          <div class="summary-panel-body">${recentRowsHTML}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function updateStaleThreshold(which, val) {
+  const hours = Math.max(1, parseInt(val, 10) || 1);
+  if (which === 'amber') {
+    S.staleAmberH = hours;
+    // Ensure amber is always less than red
+    if (S.staleAmberH >= S.staleRedH) {
+      S.staleRedH = S.staleAmberH + 1;
+      const redInput = document.getElementById('stale-red-input');
+      if (redInput) redInput.value = S.staleRedH;
+    }
+  } else {
+    S.staleRedH = hours;
+    // Ensure red is always greater than amber
+    if (S.staleRedH <= S.staleAmberH) {
+      S.staleAmberH = S.staleRedH - 1;
+      const amberInput = document.getElementById('stale-amber-input');
+      if (amberInput) amberInput.value = S.staleAmberH;
+    }
+  }
+  saveSettings();
+  renderSummary(); // re-render so stale highlights update immediately
+}
+
+function refreshAllUsers() {
+  const all = [S.pmUser, ...S.interns].filter(Boolean);
+  all.forEach(u => {
+    delete S.tickets[uid(u)];
+  });
+  // Re-render cards in loading state
+  renderSummary();
+  // Kick off all loads, re-render summary when each finishes
+  all.forEach(u => loadTickets(u));
+}
+
+// ────────────────────────────────────
+// USER SELECTION
+// ────────────────────────────────────
+function selectUser(userId) {
+  S.activeUserId = userId;
+  renderSidebar();
+
+  const all  = [S.pmUser, ...S.interns].filter(Boolean);
+  const user = all.find(u => uid(u) === userId);
+  if (!user) return;
+
+  if (S.tickets[userId]) {
+    renderBoard(user);
+  } else {
+    loadTickets(user);
+  }
+}
+
+// ────────────────────────────────────
+// LOAD TICKETS
+// ────────────────────────────────────
+async function loadTickets(user) {
+  const id = uid(user);
+  S.loading[id] = true;
+
+  if (id === S.activeUserId) renderBoardSpinner();
+
+  try {
+    const issues = await apiFetchUserTickets(user);
+    S.tickets[id] = categorize(issues);
+    // index into ticketMap
+    issues.forEach(iss => { S.ticketMap[iss.key] = iss; });
+  } catch (err) {
+    S.tickets[id] = { error: err.message, todo: [], inProgress: [], inReview: [], done: [] };
+  }
+
+  S.loading[id] = false;
+  renderSidebar();
+
+  // If summary is active, update person card as each load completes
+  if (S.activeUserId === '__summary__') {
+    renderSummary();
+    return;
+  }
+
+  if (id === S.activeUserId) {
+    const all  = [S.pmUser, ...S.interns].filter(Boolean);
+    const u    = all.find(x => uid(x) === id);
+    if (u) renderBoard(u);
+  }
+}
+
+function categorize(issues) {
+  const todo = [], inProgress = [], inReview = [], done = [];
+  for (const iss of issues) {
+    const cat    = iss.fields?.status?.statusCategory?.key || '';
+    const sname  = (iss.fields?.status?.name || '').toLowerCase();
+    if (cat === 'done') {
+      done.push(iss);
+    } else if (cat === 'indeterminate') {
+      if (sname.includes('review') || sname.includes('qa') || sname.includes('test')) {
+        inReview.push(iss);
+      } else {
+        inProgress.push(iss);
+      }
+    } else {
+      todo.push(iss);
+    }
+  }
+  return { todo, inProgress, inReview, done };
+}
+
+// ────────────────────────────────────
+// BOARD RENDER
+// ────────────────────────────────────
+function renderBoardSpinner() {
+  document.getElementById('main-content').innerHTML = `
+    <div class="board-state" style="height:100%">
+      <div class="spinner"></div>
+      <span>Loading tickets…</span>
+    </div>`;
+}
+
+function renderBoard(user) {
+  const id   = uid(user);
+  const mode = S.ticketMode[id] || 'assigned';
+  const data = mode === 'commented' ? (S.ticketsCommented[id] || S.tickets[id]) : S.tickets[id];
+  const isPM = id === uid(S.pmUser);
+  const name = user.displayName || user.name || id;
+  const initials = getInitials(name);
+
+  // Stale counts
+  const openTickets = [...(data?.todo||[]), ...(data?.inProgress||[]), ...(data?.inReview||[])];
+  let redCount = 0, amberCount = 0;
+  openTickets.forEach(t => {
+    const h = hoursSince(t.fields?.updated);
+    if      (h >= S.staleRedH)   redCount++;
+    else if (h >= S.staleAmberH) amberCount++;
+  });
+
+  const staleBadge = (() => {
+    const n = redCount + amberCount;
+    if (!n) return '';
+    const cls  = redCount > 0 ? 'stale-badge-red' : 'stale-badge-amber';
+    const icon = redCount > 0 ? '🔴' : '🟡';
+    return `<div class="stale-badge ${cls}">${icon} ${n} stale ticket${n !== 1 ? 's' : ''}</div>`;
+  })();
+
+  // Sprint summary (total open + done as simple proxy)
+  const total    = (data?.todo?.length||0) + (data?.inProgress?.length||0) +
+                   (data?.inReview?.length||0) + (data?.done?.length||0);
+  const doneN    = data?.done?.length || 0;
+  const pct      = total > 0 ? Math.round(doneN / total * 100) : 0;
+
+  const html = `
+    <div class="board-header">
+      <div class="board-header-avatar">${initials}</div>
+      <div class="board-header-info">
+        <div class="board-header-name">${escHtml(name)}${isPM ? ' <span style="font-weight:400;font-size:13px;color:#6b778c">(you)</span>' : ''}</div>
+        <div class="board-header-email">${escHtml(user.emailAddress || '')}</div>
+      </div>
+      <div class="board-header-actions">
+        ${staleBadge}
+        <button class="btn-action" onclick="refreshUser('${escAttr(id)}')">↻ Refresh</button>
+        <button class="btn-action btn-action-primary" onclick="openCreateTicket('${escAttr(id)}')">+ Create Ticket</button>
+      </div>
+    </div>
+
+    <div class="filter-tabs">
+      <button class="filter-tab ${mode === 'assigned' ? 'active' : ''}"
+        onclick="setTicketMode('${escAttr(id)}', 'assigned')">
+        Assigned / Reported
+      </button>
+      <button class="filter-tab ${mode === 'commented' ? 'active' : ''} ${S.loading[id + '_commented'] ? 'filter-tab-loading' : ''}"
+        onclick="setTicketMode('${escAttr(id)}', 'commented')">
+        ${S.loading[id + '_commented'] ? '⏳ Loading…' : '💬 Commented'}
+      </button>
+    </div>
+
+    <div class="sprint-bar">
+      <span class="sprint-label">Sprint:</span>
+      <div class="sprint-track"><div class="sprint-fill" style="width:${pct}%"></div></div>
+      <span class="sprint-count">${doneN} / ${total} done</span>
+    </div>
+
+    <div class="board-area">
+      ${data?.error
+        ? `<div class="board-state"><div class="error-state">⚠ Could not load tickets:<br>${escHtml(data.error)}</div></div>`
+        : (() => {
+            const allCount = (data?.todo?.length||0)+(data?.inProgress?.length||0)+
+                             (data?.inReview?.length||0)+(data?.done?.length||0);
+            const jiraSearchUrl = S.jiraUrl + '/issues/?jql=' +
+              encodeURIComponent(`(assignee = "${jqlId(user)}" OR reporter = "${jqlId(user)}")`);
+            const hint = allCount === 0
+              ? `<div style="text-align:center;padding:16px 0 4px;font-size:12px;color:#a0aab4">
+                   No tickets found for <strong>${escHtml(jqlId(user))}</strong>.
+                   <a href="${jiraSearchUrl}" target="_blank" rel="noopener"
+                      style="color:var(--primary);text-decoration:none;margin-left:4px">
+                     Verify in Jira ↗
+                   </a>
+                   <br><span style="font-size:11px">Check the browser console (F12) for the JQL query used.</span>
+                 </div>`
+              : '';
+            return `${hint}<div class="board-columns">
+               ${col('To Do',       'col-todo',    data?.todo       || [])}
+               ${col('In Progress', 'col-inprog',  data?.inProgress || [])}
+               ${col('In Review',   'col-review',  data?.inReview   || [])}
+               ${col('Done',        'col-done',    data?.done       || [])}
+             </div>`;
+          })()
+      }
+    </div>`;
+
+  document.getElementById('main-content').innerHTML = html;
+}
+
+function col(title, cls, tickets) {
+  const cards = tickets.map(ticketCard).join('');
+  return `
+    <div class="column ${cls}">
+      <div class="column-header">
+        <span class="column-title">${title}</span>
+        <span class="column-badge">${tickets.length}</span>
+      </div>
+      <div class="column-body">
+        ${cards || '<div class="col-empty">No tickets</div>'}
+      </div>
+    </div>`;
+}
+
+function ticketCard(iss) {
+  const key      = iss.key;
+  const title    = iss.fields?.summary || '(no title)';
+  const prio     = iss.fields?.priority?.name || 'Medium';
+  const updated  = iss.fields?.updated;
+  const h        = hoursSince(updated);
+  const staleC   = h >= S.staleRedH ? 'stale-red' : (h >= S.staleAmberH ? 'stale-amber' : '');
+  const timeStr  = fmtHours(h);
+  const timeCls  = h >= S.staleRedH ? 'red' : (h >= S.staleAmberH ? 'amber' : '');
+  const prioC    = prioClass(prio);
+  const jiraURL  = S.jiraUrl + '/browse/' + key;
+
+  return `
+    <div class="ticket-card ${staleC}" onclick="openTicketPanel('${escAttr(key)}')">
+      <div class="card-key">
+        <a href="${jiraURL}" target="_blank" rel="noopener"
+           onclick="event.stopPropagation()">${escHtml(key)}</a>
+      </div>
+      <div class="card-title">${escHtml(title)}</div>
+      <div class="card-footer">
+        <span class="priority-chip ${prioC}">${escHtml(prio)}</span>
+        <span class="card-time ${timeCls}">${timeCls ? (timeCls === 'red' ? '🔴 ' : '🟡 ') : ''}${timeStr}</span>
+      </div>
+    </div>`;
+}
+
+// ────────────────────────────────────
+// TICKET SIDE PANEL
+// ────────────────────────────────────
+async function openTicketPanel(key) {
+  const iss = S.ticketMap[key];
+  if (!iss) { window.open(S.jiraUrl + '/browse/' + key, '_blank'); return; }
+
+  S.currentPanelKey = key;
+
+  const jiraURL = S.jiraUrl + '/browse/' + key;
+  const f       = iss.fields || {};
+  const title   = f.summary || '(no title)';
+  const prio    = f.priority?.name || '—';
+  const status  = f.status?.name   || '—';
+  const type    = f.issuetype?.name || '—';
+  const project = f.project?.name   || '—';
+  const updated = fmtHours(hoursSince(f.updated));
+  const assignee = f.assignee?.displayName || 'Unassigned';
+  const desc     = f.description || '_No description_';
+
+  // Comments (latest 10)
+  const comments = (f.comment?.comments || []).slice(-10).reverse();
+  const commentHTML = comments.length
+    ? comments.map(c => `
+        <div class="comment-item">
+          <div class="comment-avatar">${getInitials(c.author?.displayName || 'U')}</div>
+          <div class="comment-bubble">
+            <span class="comment-author">${escHtml(c.author?.displayName || 'Unknown')}</span>
+            <span class="comment-time">${fmtHours(hoursSince(c.updated))}</span>
+            <div class="comment-body">${escHtml(c.body?.substring(0, 400) || '')}</div>
+          </div>
+        </div>`).join('')
+    : '<div style="color:#6b778c;font-size:13px">No comments yet.</div>';
+
+  document.getElementById('panel-key').innerHTML =
+    `<a href="${jiraURL}" target="_blank" rel="noopener">${escHtml(key)}</a>`;
+
+  // Title is now an editable textarea in the header
+  document.getElementById('panel-title').innerHTML =
+    `<textarea class="edit-title-input" id="edit-title" rows="2">${escHtml(title)}</textarea>`;
+
+  // Labels as comma-separated string
+  const labelsArr = (f.labels || []);
+  const labelsStr = labelsArr.join(', ');
+
+  // Fetch allowed priorities for this specific issue (matches Jira's own edit screen)
+  let priorities = await apiGetIssuePriorities(key);
+  if (!priorities.length && prio && prio !== '—') {
+    priorities = [{ name: prio }]; // last-resort fallback
+  }
+  const prioOptsWithCurrent = priorities.map(p =>
+    `<option value="${escAttr(p.name)}" ${p.name === prio ? 'selected' : ''}>${escHtml(p.name)}</option>`
+  ).join('');
+
+  document.getElementById('panel-body').innerHTML = `
+    <div class="panel-meta-row">
+      <div class="panel-meta-item">
+        <div class="panel-meta-label">Status</div>
+        <div class="panel-meta-value">${escHtml(status)}</div>
+      </div>
+      <div class="panel-meta-item">
+        <div class="panel-meta-label">Type</div>
+        <div class="panel-meta-value">${escHtml(type)}</div>
+      </div>
+      <div class="panel-meta-item">
+        <div class="panel-meta-label">Project</div>
+        <div class="panel-meta-value">${escHtml(project)}</div>
+      </div>
+      <div class="panel-meta-item">
+        <div class="panel-meta-label">Assignee</div>
+        <div class="panel-meta-value">${escHtml(assignee)}</div>
+      </div>
+      <div class="panel-meta-item">
+        <div class="panel-meta-label">Last update</div>
+        <div class="panel-meta-value">${updated}</div>
+      </div>
+    </div>
+
+    <div class="edit-row">
+      <div class="edit-field">
+        <div class="edit-label">Priority</div>
+        <select class="edit-select" id="edit-priority">${prioOptsWithCurrent}</select>
+      </div>
+      <div class="edit-field">
+        <div class="edit-label">Labels <span style="font-weight:400;text-transform:none">(comma-separated)</span></div>
+        <input class="edit-input" id="edit-labels" type="text"
+               value="${escAttr(labelsStr)}" placeholder="e.g. backend, blocker">
+      </div>
+    </div>
+
+    <div class="edit-label" style="margin-bottom:5px">Description</div>
+    <textarea class="edit-textarea" id="edit-description"
+              placeholder="Add a description…">${escHtml(f.description || '')}</textarea>
+
+    <div class="save-row">
+      <button class="btn-save" id="save-edits-btn"
+              onclick="saveTicketEdits('${escAttr(key)}')">Save Changes</button>
+      <span class="save-indicator" id="edit-indicator"></span>
+    </div>
+
+    <div class="panel-section-label">Comments</div>
+    <div class="comments-list">${commentHTML}</div>
+
+    <div class="panel-section-label">Add Comment</div>
+    <textarea class="comment-box" id="comment-box" placeholder="Write a comment…"></textarea>
+    <div class="panel-action-row">
+      <button class="btn btn-primary" style="width:auto"
+              onclick="postComment('${escAttr(key)}')">Post Comment</button>
+      <span class="save-indicator" id="comment-indicator"></span>
+    </div>`;
+
+  // Footer: status transition + reassign
+  await buildPanelFooter(key, iss);
+
+  document.getElementById('panel-overlay').classList.add('open');
+  document.getElementById('side-panel').classList.add('open');
+}
+
+async function buildPanelFooter(key, iss) {
+  const footer = document.getElementById('panel-footer');
+  footer.innerHTML = '<span style="font-size:12px;color:#6b778c">Loading actions…</span>';
+
+  try {
+    const transitions  = await apiGetTransitions(key);
+    const allUsers     = [S.pmUser, ...S.interns].filter(Boolean);
+    const currentAssignee = iss.fields?.assignee ? uid(iss.fields.assignee) : '';
+
+    const transOpts = transitions.map(t =>
+      `<option value="${escAttr(t.id)}">${escHtml(t.name)}</option>`).join('');
+
+    const currentAssigneeName = iss.fields?.assignee?.displayName || iss.fields?.assignee?.name || '';
+
+    footer.innerHTML = `
+      <div class="panel-fields">
+        <label style="font-size:12px;font-weight:600;color:#6b778c">Move to:</label>
+        <select class="status-select" id="transition-select">${transOpts}</select>
+        <button class="btn btn-sm btn-secondary" onclick="applyTransition('${escAttr(key)}')">Move</button>
+        <label style="font-size:12px;font-weight:600;color:#6b778c;margin-left:10px">Assign to:</label>
+        <div class="assignee-search-wrap">
+          <input class="assignee-search-input" id="assignee-search"
+            type="text" autocomplete="off" spellcheck="false"
+            placeholder="Search any user…"
+            value="${escAttr(currentAssigneeName)}"
+            oninput="searchAssignees(this.value)"
+            onfocus="if(this.value) searchAssignees(this.value)"
+            onblur="setTimeout(()=>{ const d=document.getElementById('assignee-dropdown'); if(d) d.style.display='none'; }, 200)">
+          <div class="assignee-dropdown" id="assignee-dropdown"></div>
+        </div>
+        <input type="hidden" id="assignee-value" value="${escAttr(currentAssignee)}">
+        <button class="btn btn-sm btn-secondary" onclick="applyAssign('${escAttr(key)}')">Reassign</button>
+        <button class="btn btn-sm btn-secondary" style="color:#c0392b" onclick="applyUnassign('${escAttr(key)}')">Unassign</button>
+        <span class="save-indicator" id="footer-indicator"></span>
+      </div>`;
+  } catch (err) {
+    footer.innerHTML = `<span style="font-size:12px;color:#c0392b">Could not load actions: ${escHtml(err.message)}</span>`;
+  }
+}
+
+function closePanel() {
+  document.getElementById('panel-overlay').classList.remove('open');
+  document.getElementById('side-panel').classList.remove('open');
+  S.currentPanelKey = null;
+}
+
+async function apiEditIssue(key, fields) {
+  await jira(`/issue/${key}`, {
+    method: 'PUT',
+    body: JSON.stringify({ fields }),
+  });
+}
+
+async function saveTicketEdits(key) {
+  const iss      = S.ticketMap[key];
+  const orig     = iss?.fields || {};
+  const titleEl  = document.getElementById('edit-title');
+  const descEl   = document.getElementById('edit-description');
+  const prioEl   = document.getElementById('edit-priority');
+  const labelsEl = document.getElementById('edit-labels');
+  const ind      = document.getElementById('edit-indicator');
+  const btn      = document.getElementById('save-edits-btn');
+
+  const newTitle  = (titleEl?.value  || '').trim();
+  const newDesc   = (descEl?.value   || '').trim();
+  const newPrio   = (prioEl?.value   || '').trim();
+  const newLabels = (labelsEl?.value || '')
+    .split(',').map(s => s.trim()).filter(Boolean);
+
+  if (!newTitle) {
+    ind.textContent = '✗ Title cannot be empty';
+    ind.className   = 'save-indicator show error';
+    return;
+  }
+
+  // ── Only include fields that actually changed ──
+  // This avoids "field cannot be set" errors on locked fields the user didn't touch.
+  const fields = {};
+
+  if (newTitle !== (orig.summary || '').trim()) {
+    fields.summary = newTitle;
+  }
+  if (newDesc !== (orig.description || '').trim()) {
+    fields.description = newDesc || null;
+  }
+  if (newPrio && newPrio !== (orig.priority?.name || '')) {
+    fields.priority = { name: newPrio };
+  }
+  const origLabels = (orig.labels || []).slice().sort().join(',');
+  const nextLabels = newLabels.slice().sort().join(',');
+  if (nextLabels !== origLabels) {
+    fields.labels = newLabels;
+  }
+
+  if (Object.keys(fields).length === 0) {
+    ind.textContent = 'No changes to save';
+    ind.className   = 'save-indicator show';
+    setTimeout(() => { ind.className = 'save-indicator'; }, 2000);
+    return;
+  }
+
+  btn.disabled    = true;
+  ind.textContent = 'Saving…';
+  ind.className   = 'save-indicator show';
+
+  try {
+    await apiEditIssue(key, fields);
+
+    // Update local cache so card reflects changes immediately
+    if (iss) {
+      if (fields.summary)     orig.summary     = newTitle;
+      if ('description' in fields) orig.description = newDesc;
+      if (fields.priority)    orig.priority    = { name: newPrio };
+      if (fields.labels)      orig.labels      = newLabels;
+    }
+
+    ind.textContent = '✓ Saved';
+    ind.className   = 'save-indicator show';
+    showToast('Changes saved', 'success');
+    refreshActiveUser();
+    setTimeout(() => { ind.className = 'save-indicator'; }, 3000);
+
+  } catch (err) {
+    // Parse Jira's field-level error response for a clearer message
+    let userMsg = '';
+    try {
+      const parsed     = JSON.parse(err.rawBody || '{}');
+      const fieldErrs  = parsed.errors        || {};
+      const genErrs    = parsed.errorMessages || [];
+      const parts = [
+        ...genErrs,
+        ...Object.entries(fieldErrs).map(([f, m]) => `"${f}": ${m}`),
+      ];
+      if (parts.length) userMsg = parts.join(' · ');
+    } catch (_) {}
+
+    ind.textContent = '✗ ' + (userMsg || err.message).slice(0, 100);
+    ind.className   = 'save-indicator show error';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+async function postComment(key) {
+  const box = document.getElementById('comment-box');
+  const ind = document.getElementById('comment-indicator');
+  const text = (box?.value || '').trim();
+  if (!text) return;
+
+  ind.textContent = 'Posting…';
+  ind.className   = 'save-indicator show';
+
+  try {
+    await apiPostComment(key, text);
+    box.value = '';
+    ind.textContent = '✓ Posted!';
+    ind.className   = 'save-indicator show';
+    showToast('Comment posted', 'success');
+    setTimeout(() => { ind.className = 'save-indicator'; }, 2500);
+    refreshActiveUser();
+  } catch (err) {
+    ind.textContent = '✗ ' + err.message.slice(0, 60);
+    ind.className   = 'save-indicator show error';
+  }
+}
+
+async function applyTransition(key) {
+  const sel = document.getElementById('transition-select');
+  const ind = document.getElementById('footer-indicator');
+  if (!sel?.value) return;
+
+  ind.textContent = 'Moving…';
+  ind.className   = 'save-indicator show';
+
+  try {
+    await apiTransition(key, sel.value);
+    ind.textContent = '✓ Done';
+    showToast('Ticket moved', 'success');
+    closePanel();
+    refreshActiveUser();
+  } catch (err) {
+    ind.textContent = '✗ ' + err.message.slice(0, 60);
+    ind.className   = 'save-indicator show error';
+  }
+}
+
+let _assigneeTimer = null;
+
+async function searchAssignees(q) {
+  clearTimeout(_assigneeTimer);
+  const dropdown = document.getElementById('assignee-dropdown');
+  if (!dropdown) return;
+
+  const trimmed = q.trim();
+
+  // Show "Unassigned" option always at the top
+  const unassignedRow = `<div class="assignee-dropdown-item" style="color:#6b778c;font-style:italic"
+    onclick="selectAssignee('', 'Unassigned')">— Unassigned</div>`;
+
+  if (!trimmed) {
+    dropdown.innerHTML = unassignedRow;
+    dropdown.style.display = 'block';
+    return;
+  }
+
+  dropdown.innerHTML = `${unassignedRow}<div class="assignee-dropdown-msg">Searching…</div>`;
+  dropdown.style.display = 'block';
+
+  _assigneeTimer = setTimeout(async () => {
+    try {
+      const users = await apiSearchUsers(trimmed);
+      if (!users.length) {
+        dropdown.innerHTML = `${unassignedRow}<div class="assignee-dropdown-msg">No users found</div>`;
+        return;
+      }
+      const rows = users.map(u => {
+        const id   = uid(u);
+        const name = escHtml(u.displayName || u.name || id);
+        const idEsc = escAttr(id);
+        const nameEsc = escAttr(u.displayName || u.name || id);
+        return `<div class="assignee-dropdown-item" onclick="selectAssignee('${idEsc}', '${nameEsc}')">${name}</div>`;
+      }).join('');
+      dropdown.innerHTML = unassignedRow + rows;
+    } catch (_) {
+      dropdown.innerHTML = `${unassignedRow}<div class="assignee-dropdown-msg">Search failed</div>`;
+    }
+  }, 250);
+}
+
+function selectAssignee(id, name) {
+  const searchInput = document.getElementById('assignee-search');
+  const valueInput  = document.getElementById('assignee-value');
+  const dropdown    = document.getElementById('assignee-dropdown');
+  if (searchInput) searchInput.value = name === 'Unassigned' ? '' : name;
+  if (valueInput)  valueInput.value  = id;
+  if (dropdown)    dropdown.style.display = 'none';
+}
+
+async function applyAssign(key) {
+  const valInput = document.getElementById('assignee-value');
+  const ind      = document.getElementById('footer-indicator');
+  if (!valInput) return;
+
+  ind.textContent = 'Reassigning…';
+  ind.className   = 'save-indicator show';
+
+  try {
+    await apiAssign(key, valInput.value);
+    ind.textContent = '✓ Done';
+    showToast('Ticket reassigned', 'success');
+    closePanel();
+    refreshActiveUser();
+    // Also refresh the newly assigned user if they're tracked
+    const all = [S.pmUser, ...S.interns].filter(Boolean);
+    const target = all.find(u => uid(u) === valInput.value);
+    if (target && uid(target) !== S.activeUserId) {
+      delete S.tickets[uid(target)];
+      loadTickets(target);
+    }
+  } catch (err) {
+    ind.textContent = '✗ ' + err.message.slice(0, 60);
+    ind.className   = 'save-indicator show error';
+  }
+}
+
+async function applyUnassign(key) {
+  const ind = document.getElementById('footer-indicator');
+  ind.textContent = 'Unassigning…';
+  ind.className   = 'save-indicator show';
+  try {
+    await jira(`/issue/${key}/assignee`, {
+      method: 'PUT',
+      body: JSON.stringify({ name: null, accountId: null }),
+    });
+    ind.textContent = '✓ Unassigned';
+    showToast('Ticket unassigned', 'success');
+    closePanel();
+    refreshActiveUser();
+  } catch (err) {
+    ind.textContent = '✗ ' + err.message.slice(0, 60);
+    ind.className   = 'save-indicator show error';
+  }
+}
+
+function refreshActiveUser() {
+  const id  = S.activeUserId;
+  const all = [S.pmUser, ...S.interns].filter(Boolean);
+  const u   = all.find(x => uid(x) === id);
+  if (!u) return;
+  delete S.tickets[id];
+  loadTickets(u);
+}
+
+// ────────────────────────────────────
+// ADD INTERN MODAL
+// ────────────────────────────────────
+function openAddInternModal() {
+  if (S.interns.length >= MAX_INTERNS) return;
+  document.getElementById('intern-search-input').value = '';
+  document.getElementById('intern-search-results').classList.remove('show');
+  document.getElementById('intern-limit-msg').classList.remove('show');
+  document.getElementById('add-intern-modal').classList.add('open');
+  setTimeout(() => document.getElementById('intern-search-input').focus(), 80);
+}
+
+function closeAddInternModal() {
+  document.getElementById('add-intern-modal').classList.remove('open');
+}
+
+let searchTimer = null;
+function handleInternSearch(query) {
+  clearTimeout(searchTimer);
+  const el = document.getElementById('intern-search-results');
+  if (!query.trim()) { el.classList.remove('show'); return; }
+
+  el.innerHTML = '<div class="search-empty">Searching…</div>';
+  el.classList.add('show');
+
+  searchTimer = setTimeout(async () => {
+    const users   = await apiSearchUsers(query);
+    const tracked = new Set([uid(S.pmUser), ...S.interns.map(uid)]);
+    const fresh   = users.filter(u => !tracked.has(uid(u)));
+
+    S.searchResults = fresh;
+
+    if (!fresh.length) {
+      el.innerHTML = '<div class="search-empty">No users found.</div>';
+      return;
+    }
+
+    el.innerHTML = fresh.map((u, i) => {
+      const name = u.displayName || u.name || uid(u);
+      return `
+        <div class="search-result-row" onclick="pickIntern(${i})">
+          <div class="result-avatar">${getInitials(name)}</div>
+          <div>
+            <div class="result-name">${escHtml(name)}</div>
+            <div class="result-email">${escHtml(u.emailAddress || '')}</div>
+          </div>
+        </div>`;
+    }).join('');
+  }, 350);
+}
+
+async function pickIntern(idx) {
+  const user = S.searchResults[idx];
+  if (!user) return;
+  if (S.interns.length >= MAX_INTERNS) {
+    document.getElementById('intern-limit-msg').classList.add('show');
+    return;
+  }
+  if (!S.interns.find(u => uid(u) === uid(user))) {
+    S.interns.push(user);
+    await saveSettings();
+    renderSidebar();
+    loadTickets(user);
+  }
+  closeAddInternModal();
+  showToast(escHtml(user.displayName || 'User') + ' added', 'success');
+}
+
+async function removeIntern(event, userId) {
+  event.stopPropagation();
+  const user = S.interns.find(u => uid(u) === userId);
+  const name = user?.displayName || user?.name || 'this person';
+  if (!confirm(`Remove ${name} from the dashboard?`)) return;
+  S.interns = S.interns.filter(u => uid(u) !== userId);
+  delete S.tickets[userId];
+  if (S.activeUserId === userId) {
+    S.activeUserId = uid(S.pmUser);
+    const cached = S.tickets[S.activeUserId];
+    if (cached) renderBoard(S.pmUser);
+    else loadTickets(S.pmUser);
+  }
+  saveSettings();
+  renderSidebar();
+}
+
+async function setTicketMode(userId, mode) {
+  const all  = [S.pmUser, ...S.interns].filter(Boolean);
+  const user = all.find(u => uid(u) === userId);
+  if (!user) return;
+
+  S.ticketMode[userId] = mode;
+
+  if (mode === 'assigned') {
+    // Already loaded — just re-render
+    renderBoard(user);
+    return;
+  }
+
+  // 'commented' mode — fetch if not cached yet
+  if (S.ticketsCommented[userId]) {
+    renderBoard(user);
+    return;
+  }
+
+  // Show loading state on the tab while fetching
+  S.loading[userId + '_commented'] = true;
+  renderBoard(user);
+
+  try {
+    const issues = await apiFetchActivityTickets(user);
+    S.ticketsCommented[userId] = categorize(issues);
+    issues.forEach(iss => { S.ticketMap[iss.key] = iss; });
+  } catch (err) {
+    // ScriptRunner may not be installed — store error so board can show a message
+    S.ticketsCommented[userId] = {
+      error: err.message.includes('issueFunction')
+        ? 'This filter requires the ScriptRunner plugin on your Jira instance. Ask your Jira admin to install ScriptRunner to enable "Commented & Mentioned" filtering.'
+        : err.message,
+      todo: [], inProgress: [], inReview: [], done: []
+    };
+  }
+
+  S.loading[userId + '_commented'] = false;
+  renderBoard(user);
+}
+
+function refreshUser(userId) {
+  delete S.tickets[userId];
+  const all = [S.pmUser, ...S.interns].filter(Boolean);
+  const u   = all.find(x => uid(x) === userId);
+  if (u) loadTickets(u);
+}
+
+// ────────────────────────────────────
+// CREATE TICKET (opens Jira)
+// ────────────────────────────────────
+function openCreateTicket(assigneeId) {
+  // Opens Jira's create issue dialog in a new tab.
+  // A future iteration will inline this in the dashboard.
+  window.open(S.jiraUrl + '/secure/CreateIssue.jspa', '_blank', 'noopener');
+}
+
+// ────────────────────────────────────
+// HELPERS
+// ────────────────────────────────────
+function staleCountFor(userId) {
+  const data = S.tickets[userId];
+  if (!data) return { red: 0, amber: 0 };
+  const open = [...(data.todo||[]), ...(data.inProgress||[]), ...(data.inReview||[])];
+  let red = 0, amber = 0;
+  open.forEach(t => {
+    const h = hoursSince(t.fields?.updated);
+    if      (h >= S.staleRedH)   red++;
+    else if (h >= S.staleAmberH) amber++;
+  });
+  return { red, amber };
+}
+
+function hoursSince(dateStr) {
+  if (!dateStr) return 0;
+  return (Date.now() - new Date(dateStr).getTime()) / 3_600_000;
+}
+
+function fmtHours(h) {
+  if (h < 1)    return 'just now';
+  if (h < 24)   return Math.floor(h)  + 'h ago';
+  if (h < 168)  return Math.floor(h / 24) + 'd ago';
+  return Math.floor(h / 168) + 'w ago';
+}
+
+function getInitials(name) {
+  return (name || 'U').split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+}
+
+function prioClass(prio) {
+  switch ((prio || '').toLowerCase()) {
+    case 'highest': case 'critical': return 'prio-highest';
+    case 'high':                     return 'prio-high';
+    case 'medium':                   return 'prio-medium';
+    case 'low':                      return 'prio-low';
+    default:                         return 'prio-lowest';
+  }
+}
+
+function escHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function escAttr(s) {
+  return String(s ?? '').replace(/'/g, '&#39;').replace(/"/g, '&quot;');
+}
+
+function escRegex(s) {
+  return String(s).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// ────────────────────────────────────
+// WEIGHT EDITING (realtime + auto-save)
+// ────────────────────────────────────
+let _saveDebounce = null;
+
+function updateSubWeight(selectEl) {
+  const goalId = selectEl.getAttribute('data-goal');
+  const subIdx = parseInt(selectEl.getAttribute('data-sub'), 10);
+  const newWeight = parseInt(selectEl.value, 10);
+
+  // Find the matching goal in the snapshot and update the weight
+  const snap = S.progressSnapshot;
+  if (!snap || !snap.interns) return;
+
+  let found = false;
+  for (const intern of snap.interns) {
+    for (const track of (intern.tracks || [])) {
+      for (const goal of (track.goals || [])) {
+        const gId = (goal.text || '').replace(/[^a-zA-Z0-9]/g, '_').slice(0, 40);
+        if (gId === goalId && goal.subtasks && goal.subtasks[subIdx]) {
+          goal.subtasks[subIdx].weight = newWeight;
+          // Recompute goal pct with weighted formula
+          const totalW = goal.subtasks.reduce((s, t) => s + (t.weight || 1), 0);
+          const doneW = goal.subtasks.reduce((s, t) => t.done ? s + (t.weight || 1) : s, 0);
+          goal.pct = totalW > 0 ? Math.round((doneW / totalW) * 100) : 0;
+          found = true;
+          break;
+        }
+      }
+      if (found) break;
+    }
+    if (found) {
+      // Recompute intern overallPct
+      const allGoals = intern.tracks.flatMap(t => t.goals || []);
+      allGoals.forEach(g => {
+        const ss = g.subtasks || [];
+        if (ss.length > 0) {
+          const tw = ss.reduce((s, t) => s + (t.weight || 1), 0);
+          const dw = ss.reduce((s, t) => t.done ? s + (t.weight || 1) : s, 0);
+          g.pct = tw > 0 ? Math.round((dw / tw) * 100) : 0;
+        }
+      });
+      const pcts = allGoals.map(g => g.pct ?? 0);
+      intern.overallPct = pcts.length ? Math.round(pcts.reduce((a,b) => a+b, 0) / pcts.length) : 0;
+      break;
+    }
+  }
+
+  if (found) {
+    // Re-render immediately for realtime feedback
+    renderGoalsView();
+    renderSidebar();
+
+    // Debounced auto-save to backend (waits 500ms after last change)
+    // Only saves when running on localhost with proxy.js; on GitHub Pages weights are session-only
+    clearTimeout(_saveDebounce);
+    const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    if (isLocal) {
+      _saveDebounce = setTimeout(() => {
+        snap.updatedAt = new Date().toISOString();
+        fetch('/progress', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(snap, null, 2)
+        }).then(r => r.json()).then(d => {
+          if (d.ok) showToast('Weights saved', 'success');
+          else showToast('Save failed: ' + (d.error || 'unknown'), 'error');
+        }).catch(() => showToast('Could not save — is proxy.js running?', 'error'));
+      }, 500);
+    } else {
+      showToast('Weight updated (view-only mode — changes reset on reload)', 'success');
+    }
+  }
+}
+
+// ────────────────────────────────────
+// TOAST
+// ────────────────────────────────────
+let toastTimer = null;
+function showToast(msg, type = '') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className   = 'toast show ' + type;
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => { el.className = 'toast'; }, 3000);
+}
+
+// ────────────────────────────────────
+// INIT
+// ────────────────────────────────────
+(async function init() {
+  await loadSettings();
+  await loadProgress();
+  if (S.pat && S.jiraUrl && S.pmUser) {
+    S.activeUserId = '__goals__';   // Goals & Updates is the default landing view
+    enterMainScreen();
+    renderSidebar();
+    renderGoalsView();
+    // Kick off Jira ticket loads in the background so they're ready when user switches
+    const all = [S.pmUser, ...S.interns].filter(Boolean);
+    all.forEach(u => loadTickets(u));
+    // Also auto-load Glip messages if credentials are set
+    if (S.rcPat && S.rcClientId && S.rcClientSecret && S.rcGroupId && !S.glipPosts.length) {
+      loadGlipMessages();
+    }
+  }
+  // Otherwise setup screen is already visible
+})();
+</script>
+</body>
+</html>

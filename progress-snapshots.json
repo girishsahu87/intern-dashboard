@@ -1,0 +1,1045 @@
+{
+  "updatedAt": "2026-06-05T06:54:51.157Z",
+  "lastFetched": "2026-06-05T06:55:00.000Z",
+  "weekOf": "2026-06-01",
+  "snapshotNote": "Jun 5: Shubh's final review of Harshal's Mixpanel doc completed (100%). RC connector caught Girish's late Jun 4 message: dashboard determinism work, CDH Ch 7 done, AVA offline evals for pending logs.",
+  "daily": {
+    "date": "2026-06-05",
+    "newToday": [],
+    "noUpdate": [
+      {
+        "intern": "Harshal Gujrati",
+        "daysSilent": 1
+      },
+      {
+        "intern": "Sharvil Potdar",
+        "daysSilent": 1
+      }
+    ],
+    "lagging": [
+      {
+        "intern": "Harshal Gujrati",
+        "pct": 10,
+        "concern": "SMS opt-out INIT still at 10% — no progress since May 29 (7+ days)."
+      }
+    ]
+  },
+  "interns": [
+    {
+      "id": "234537128",
+      "name": "Harshal Gujrati",
+      "overallPct": 82,
+      "prevPct": 80,
+      "lastActivity": "2026-06-04T15:50:04.039Z",
+      "tracks": [
+        {
+          "name": "Vodafone FMC",
+          "color": "#6366f1",
+          "goals": [
+            {
+              "text": "Explore FMC ticket & understand requirements",
+              "pct": 100,
+              "status": "done",
+              "notes": "Fully explored INIT-24612. Identified relevant Fiji cases by May 17."
+            },
+            {
+              "text": "Segregate requirements for mThor and Jupiter",
+              "pct": 100,
+              "status": "done",
+              "notes": "Separated FMC requirements into mThor and Jupiter tracks."
+            },
+            {
+              "text": "Create user stories and file Jira tickets",
+              "pct": 100,
+              "status": "done",
+              "notes": "Created user stories for mThor (MTR-138384) and Jupiter (FIJI-98631)."
+            },
+            {
+              "text": "Mixpanel implementation doc for Vodafone FMC",
+              "status": "done",
+              "changedToday": true,
+              "deadline": "2026-05-29",
+              "deadlineNote": "Doc was due Friday May 29 — delivered on time. Shubh's review complete.",
+              "subtasks": [
+                {
+                  "text": "Get sample doc reference from Shubh",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Walk through one event with Sharvil",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Create Mixpanel doc for Jupiter",
+                  "done": true,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Create Mixpanel doc for mThor",
+                  "done": true,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "File JIRA ticket for Jupiter (FIJI-98632)",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "File JIRA ticket for mThor",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Shubh's final review",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 100,
+              "notes": "Jun 5 12:30 IST: Shubh's final review completed. All subtasks done — doc fully delivered. Previously: Jun 4 reviewed tracking events with engineers and clarified blockers."
+            }
+          ]
+        },
+        {
+          "name": "CMR / Change Management",
+          "color": "#0891b2",
+          "goals": [
+            {
+              "text": "CMR changes per Shubh's feedback",
+              "pct": 100,
+              "status": "done",
+              "notes": "Made changes across all 3 CMR change plans. Done May 21."
+            },
+            {
+              "text": "Document change management process",
+              "pct": 100,
+              "status": "done",
+              "notes": "Completed CMR documentation. Confirmed done on May 25."
+            }
+          ]
+        },
+        {
+          "name": "SMS & Compliance",
+          "color": "#ea580c",
+          "goals": [
+            {
+              "text": "SMS opt-out INIT (offloaded from Sharvil)",
+              "status": "pending",
+              "changedToday": false,
+              "subtasks": [
+                {
+                  "text": "Get walkthrough from Sharvil on SMS opt-out INIT",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Understand opt-out API integration scope",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "File/update JIRA tickets",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Complete implementation",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 11,
+              "notes": "May 29 (IST): Sharvil explained and offloaded to Harshal. No progress since — 7+ days stalled."
+            }
+          ]
+        },
+        {
+          "name": "Phone Apps Interns Project",
+          "color": "#16a34a",
+          "goals": [
+            {
+              "text": "AVA Offline Evals — failed logs",
+              "status": "in_progress",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "Complete offline evals for all failed logs",
+                  "done": true,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": "80496232865796"
+                },
+                {
+                  "text": "Document findings and insights",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 67,
+              "notes": "Jun 4 21:20 IST: Offline evals completed for all failed AVA logs. Collaborative effort with Sharvil and Parth."
+            }
+          ]
+        },
+        {
+          "name": "Reading & Development",
+          "color": "#a0aec0",
+          "goals": [
+            {
+              "text": "Read Part 1: Shaping (Ch 1–6) — Shape Up",
+              "pct": 100,
+              "status": "done",
+              "changedToday": false,
+              "deadline": "2026-06-01",
+              "deadlineNote": "Presented June 1 — completed on time.",
+              "notes": "All 6 chapters done. Presented June 1 in Aryabhatta. Shubh: 'You mapped Shape Up to real work — that's the bar.'"
+            },
+            {
+              "text": "Read Continuous Discovery Habits Part 1 (Ch 1–3)",
+              "status": "in_progress",
+              "changedToday": true,
+              "deadline": "2026-06-08",
+              "deadlineNote": "Presentation next Monday June 8. Must include: summary, real-work example, one untested assumption.",
+              "subtasks": [
+                {
+                  "text": "Read Ch 1: Continuous Discovery",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": "80496232865796"
+                },
+                {
+                  "text": "Read Ch 2: Outcomes over Outputs",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": "80496232865796"
+                },
+                {
+                  "text": "Read Ch 3: The Opportunity Space",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Prepare presentation with untested assumption from Vodafone FMC",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 40,
+              "notes": "Jun 4 21:20 IST: Completed Ch 1 & 2. Ch 3 + presentation remain. Deadline June 8."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "163074129",
+      "name": "Sharvil Potdar",
+      "overallPct": 84,
+      "prevPct": 83,
+      "lastActivity": "2026-06-04T15:22:44.679Z",
+      "tracks": [
+        {
+          "name": "Accessibility",
+          "color": "#e11d48",
+          "goals": [
+            {
+              "text": "Discuss tickets with engineering team",
+              "pct": 100,
+              "status": "done",
+              "notes": "Discussed each ticket in FIJI & mThor epics."
+            },
+            {
+              "text": "Get clarification from Kenny Lee / UX team",
+              "status": "in_progress",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "Raise doubts with Kenny Lee",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "UX meeting for waiting-for-clarification tickets",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Create UX ticket shared with Vijeth",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Create tickets from Eshwar's issues",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Get MTR-148119 scope clarification from Shubh",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Kenny Lee / UX design clarification on remaining tickets",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "uphill",
+                  "msg_ref": "80484714209284"
+                },
+                {
+                  "text": "Kenny Lee to provide new Q3 epic for deferred stories",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": "80484714209284"
+                }
+              ],
+              "pct": 85,
+              "notes": "Jun 4 17:28 IST: UX received for accessibility tickets and discussed with mThor team. Pending: Kenny Lee to provide new epic for stories moving to Q3."
+            },
+            {
+              "text": "Video evidence of current behaviour",
+              "status": "in_progress",
+              "changedToday": false,
+              "subtasks": [
+                {
+                  "text": "Record video for MTR-142562",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Record video for MTR-129212",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Record videos for 2 more tickets",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Upload all videos to JIRA",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Record video for last remaining ticket",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 80
+            },
+            {
+              "text": "Blocked tickets — UX clarification needed",
+              "status": "in_progress",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "Identify blocked tickets (MTR-129212, MTR-129206)",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Discuss in grooming",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Create sub-tab tickets per Nitish",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Create new epic for extra accessibility issues",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Discuss doubts with engineering team",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Get Kenny Lee/UX design clarification",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "uphill",
+                  "msg_ref": "80484714209284"
+                },
+                {
+                  "text": "Kenny Lee to provide Q3 epic for deferred stories",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": "80484714209284"
+                }
+              ],
+              "pct": 87,
+              "notes": "Jun 4 17:28 IST: UX received and discussed with mThor team. Kenny Lee still needs to provide the Q3 epic for deferred stories."
+            }
+          ]
+        },
+        {
+          "name": "CarPlay",
+          "color": "#7c3aed",
+          "goals": [
+            {
+              "text": "Explore behaviour & finalise Phase 1 flow",
+              "pct": 100,
+              "status": "done",
+              "notes": "Finalised calls, texts, favourites flow for Phase 1."
+            },
+            {
+              "text": "File Jira tickets & define Mixpanel events",
+              "pct": 100,
+              "status": "done",
+              "notes": "All ticketing & events complete."
+            },
+            {
+              "text": "CarPlay demo & Mixpanel handoff to mThor",
+              "pct": 100,
+              "status": "done",
+              "changedToday": true,
+              "notes": "Jun 4 17:33 IST: Demo for CarPlay completed. Filtered and shared Mixpanel events after discussion with mThor team."
+            }
+          ]
+        },
+        {
+          "name": "CMR / Change Management",
+          "color": "#0891b2",
+          "goals": [
+            {
+              "text": "Add FFS keys to change plan",
+              "pct": 100,
+              "status": "done",
+              "notes": "Done May 21."
+            }
+          ]
+        },
+        {
+          "name": "SMS & Compliance",
+          "color": "#ea580c",
+          "goals": [
+            {
+              "text": "SMS opt-out — API integration tickets",
+              "pct": 100,
+              "status": "done",
+              "notes": "Complete. Offloaded INIT portion to Harshal on May 29."
+            },
+            {
+              "text": "DNC Scrubbing — initial research (deprioritized)",
+              "pct": 70,
+              "status": "on_hold",
+              "notes": "On hold per discussion."
+            },
+            {
+              "text": "Broadcast flow ticket",
+              "pct": 100,
+              "status": "done",
+              "notes": "Complete."
+            }
+          ]
+        },
+        {
+          "name": "Phone Apps Interns Project",
+          "color": "#16a34a",
+          "goals": [
+            {
+              "text": "Confidence scoring for post-call AI",
+              "status": "in_progress",
+              "changedToday": false,
+              "subtasks": [
+                {
+                  "text": "Initial confidence scoring parameters research",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Discuss and clarify edge cases",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Continue scoring discussion + Mixpanel events for FMC mThor",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Finalize scoring model",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Document and present results",
+                  "done": false,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 50
+            },
+            {
+              "text": "AVA Offline Evals — 8 intents",
+              "status": "in_progress",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "Complete offline evals for 8 intents from filtered log file",
+                  "done": true,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": "80494363869188"
+                },
+                {
+                  "text": "Document findings and insights",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 67,
+              "notes": "Jun 4 20:52 IST: Offline evals completed for 8 intents from the given filtered log file. Collaborative effort with Harshal and Parth."
+            }
+          ]
+        },
+        {
+          "name": "Reading & Development",
+          "color": "#a0aec0",
+          "goals": [
+            {
+              "text": "Read Part 2: Betting (Ch 7–9) — Shape Up",
+              "pct": 100,
+              "status": "done",
+              "changedToday": false,
+              "deadline": "2026-06-01",
+              "deadlineNote": "Presented June 1 — completed on time.",
+              "notes": "Part 2 done. Presented June 1. Shared meeting recording & summary."
+            },
+            {
+              "text": "Read Continuous Discovery Habits Part 2 (Ch 4–6)",
+              "status": "in_progress",
+              "changedToday": true,
+              "deadline": "2026-06-08",
+              "deadlineNote": "Presentation next Monday June 8. Must include: summary, real-work example, one untested assumption.",
+              "subtasks": [
+                {
+                  "text": "Read Ch 4: The Opportunity Solution Tree",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": "80494363869188"
+                },
+                {
+                  "text": "Read Ch 5: Prioritising Opportunities",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Read Ch 6: Identifying Assumptions",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Prepare presentation — map to a grooming prioritization decision",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 20,
+              "notes": "Jun 4 20:52 IST: Ch 4 completed. Ch 5, 6 + presentation remain. Deadline June 8."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "234536128",
+      "name": "Girish Sahu",
+      "overallPct": 67,
+      "prevPct": 59,
+      "lastActivity": "2026-06-04T18:22:56.579Z",
+      "tracks": [
+        {
+          "name": "Intern Dashboard",
+          "color": "#0052cc",
+          "goals": [
+            {
+              "text": "Prototype & Jira integration",
+              "pct": 100,
+              "status": "done",
+              "notes": "PRD shared May 19. Built proxy server, Glip message fetching, full dashboard."
+            },
+            {
+              "text": "Additional features & Glip team connection",
+              "status": "in_progress",
+              "changedToday": false,
+              "subtasks": [
+                {
+                  "text": "Implement Shubh's suggestions",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Progress tracking UI",
+                  "done": true,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Automate with Claude scheduler",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Track-grouped goals with color coding",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Done tasks dropdown",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Subtask-based explainable tracking",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Eval framework",
+                  "done": false,
+                  "weight": 5,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 61
+            },
+            {
+              "text": "System design & evals",
+              "status": "in_progress",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "System design diagram/PPTX",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Implement deterministic subtask tracking",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": "80506266845188"
+                },
+                {
+                  "text": "Build eval test harness",
+                  "done": false,
+                  "weight": 5,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Present to Shubh",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 21,
+              "notes": "Jun 4 23:52 IST: Actively working on Dashboard Determinism approach. Subtask not yet complete."
+            }
+          ]
+        },
+        {
+          "name": "Phone Apps Interns Project",
+          "color": "#16a34a",
+          "goals": [
+            {
+              "text": "AVA Offline Evals — pending logs",
+              "status": "in_progress",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "Complete offline evals for all pending logs",
+                  "done": true,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": "80506266845188"
+                },
+                {
+                  "text": "Document findings and insights",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 67,
+              "notes": "Jun 4 23:52 IST: Offline evals completed for all pending AVA logs. Collaborative effort with Harshal and Sharvil."
+            }
+          ]
+        },
+        {
+          "name": "Reading & Development",
+          "color": "#a0aec0",
+          "goals": [
+            {
+              "text": "Read Part 3: Building (Ch 10–13) — Shape Up",
+              "pct": 100,
+              "status": "done",
+              "changedToday": false,
+              "deadline": "2026-06-01",
+              "deadlineNote": "Presented June 1 — completed on time.",
+              "notes": "All 4 chapters done. Presented June 1."
+            },
+            {
+              "text": "Read Continuous Discovery Habits Part 3 (Ch 7–9)",
+              "status": "in_progress",
+              "changedToday": true,
+              "deadline": "2026-06-08",
+              "deadlineNote": "Presentation next Monday June 8. Must include: summary, real-work example, one untested assumption.",
+              "subtasks": [
+                {
+                  "text": "Read Ch 7: Testing Assumptions",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": "80506266845188"
+                },
+                {
+                  "text": "Read Ch 8: Rapid Experimentation",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Read Ch 9: Managing the Cadence",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Prepare presentation — apply assumption testing to the dashboard",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 20,
+              "notes": "Jun 4 23:52 IST: Ch 7 (Testing Assumptions) finished. Ch 8, 9 + presentation remain. Deadline June 8."
+            },
+            {
+              "text": "Evaluate Kaggle AI Agents course for Shubh",
+              "status": "done",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "Review course structure and content",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Report to Shubh on expected outcomes",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 100,
+              "notes": "Jun 5 IST: Course reviewed and reported to Shubh. Complete."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "234545128",
+      "name": "Parth Sharma",
+      "overallPct": 66,
+      "prevPct": 66,
+      "lastActivity": "2026-06-04T14:34:02.911Z",
+      "tracks": [
+        {
+          "name": "SWAT / SMS",
+          "color": "#d97706",
+          "goals": [
+            {
+              "text": "Get familiarised with SMS threading & Shared Inbox",
+              "pct": 100,
+              "status": "done",
+              "notes": "Confirmed done May 28."
+            },
+            {
+              "text": "Scan SWAT sheet & identify major issue buckets",
+              "pct": 100,
+              "status": "done",
+              "notes": "Confirmed done May 28. Tickets filed."
+            },
+            {
+              "text": "Explore Kibana & understand AVA Evaluation Data",
+              "status": "in_progress",
+              "changedToday": false,
+              "deadline": "2026-05-30",
+              "deadlineNote": "MISSED — Shubh wanted each column explained by May 30.",
+              "subtasks": [
+                {
+                  "text": "Get Kibana access",
+                  "done": true,
+                  "weight": 1,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Find AVA logs (with help from Niranjan/Nihal)",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Generate CSV similar to Shubh's sample",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Compare judge vs AVA results",
+                  "done": true,
+                  "weight": 3,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Explore useful fields for logs",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Explain what each column means",
+                  "done": false,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Pull historical data (pre-May 12 issue)",
+                  "done": false,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 65
+            },
+            {
+              "text": "Ground truth process design for AVA evaluation",
+              "status": "in_progress",
+              "changedToday": true,
+              "subtasks": [
+                {
+                  "text": "Understand AVA evaluation process",
+                  "done": true,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Compare judge vs AVA results for ground truth",
+                  "done": false,
+                  "weight": 3,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Run analysis on latest AVA logs (Jim Wang 6/1 data)",
+                  "done": true,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": "80491193163780"
+                },
+                {
+                  "text": "Find insights and recommend product actions",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Design ground truth process",
+                  "done": false,
+                  "weight": 5,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Document and present",
+                  "done": false,
+                  "weight": 3,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 29,
+              "notes": "Jun 4 20:04 IST: Shared Offline Evals Google Sheet with 4 tabs (DONE, FAILED, PROCESSING, PENDING). Column Q = offline eval result, R = description. Shubh clarified status meanings: Pending = waiting for user input, Processing = system not responded yet."
+            }
+          ]
+        },
+        {
+          "name": "Reading & Development",
+          "color": "#a0aec0",
+          "goals": [
+            {
+              "text": "Read Appendix + Core Concepts — Shape Up",
+              "status": "done",
+              "changedToday": false,
+              "pct": 100,
+              "deadline": "2026-06-01",
+              "deadlineNote": "Presented June 1 — completed.",
+              "notes": "Presented June 1. Previously at risk but completed."
+            },
+            {
+              "text": "Read Continuous Discovery Habits Part 4 (Ch 10–12 + Conclusion)",
+              "status": "pending",
+              "changedToday": false,
+              "deadline": "2026-06-08",
+              "deadlineNote": "Presentation next Monday June 8. Must include: summary, real-work example, one untested assumption.",
+              "subtasks": [
+                {
+                  "text": "Read Ch 10: Making it a Habit",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Read Ch 11: Adoption",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Read Ch 12 + Conclusion: The Mindset",
+                  "done": false,
+                  "weight": 2,
+                  "phase": "uphill",
+                  "msg_ref": ""
+                },
+                {
+                  "text": "Prepare presentation — frame 4 SWAT themes as discovery problem",
+                  "done": false,
+                  "weight": 4,
+                  "phase": "downhill",
+                  "msg_ref": ""
+                }
+              ],
+              "pct": 0,
+              "notes": "Jun 1 (IST): Assigned by Shubh. Context: 'Your 4 SWAT themes — SMS failure, Visibility/Sync, UI, Config — are a discovery problem, not just a support problem. Torres gives you the framework to turn recurring tickets into a structured product case.'"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
