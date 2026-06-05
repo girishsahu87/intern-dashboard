@@ -3006,8 +3006,9 @@ function renderChecklist(post) {
 function renderGoalsView() {
   const el = document.getElementById('main-content');
 
-  // ── No RC credentials set up ──
-  if (!S.rcPat || !S.rcClientId || !S.rcClientSecret || !S.rcGroupId) {
+  // ── No RC credentials set up (skip on GitHub Pages — snapshot is pre-loaded) ──
+  const _isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+  if (_isLocal && (!S.rcPat || !S.rcClientId || !S.rcClientSecret || !S.rcGroupId)) {
     el.innerHTML = `
       <div class="goals-view">
         <div class="goals-header">
@@ -4591,22 +4592,51 @@ function showToast(msg, type = '') {
 // INIT
 // ────────────────────────────────────
 (async function init() {
-  await loadSettings();
-  await loadProgress();
-  if (S.pat && S.jiraUrl && S.pmUser) {
-    S.activeUserId = '__goals__';   // Goals & Updates is the default landing view
-    enterMainScreen();
+  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+
+  if (isLocal) {
+    // Full flow: load settings, check Jira auth, show setup if needed
+    await loadSettings();
+    await loadProgress();
+    if (S.pat && S.jiraUrl && S.pmUser) {
+      S.activeUserId = '__goals__';
+      enterMainScreen();
+      renderSidebar();
+      renderGoalsView();
+      const all = [S.pmUser, ...S.interns].filter(Boolean);
+      all.forEach(u => loadTickets(u));
+      if (S.rcPat && S.rcClientId && S.rcClientSecret && S.rcGroupId && !S.glipPosts.length) {
+        loadGlipMessages();
+      }
+    }
+  } else {
+    // GitHub Pages: skip setup, go straight to dashboard with snapshot data
+    await loadProgress();
+    S.activeUserId = '__goals__';
+    document.getElementById('setup-screen').style.display = 'none';
+    document.getElementById('main-screen').style.display  = 'block';
+
+    // Populate S.interns from snapshot so sidebar renders the intern list
+    if (S.progressSnapshot && S.progressSnapshot.interns) {
+      S.interns = S.progressSnapshot.interns.map(i => ({
+        displayName: i.name,
+        name: i.name,
+        id: i.name
+      }));
+      // Use first intern as a fake pmUser so sidebar renders properly
+      S.pmUser = null;
+    }
+
+    // Hide settings/logout/add-person controls (not functional without proxy)
+    document.querySelectorAll('[onclick="goToSetup()"], [onclick="logout()"]').forEach(el => el.style.display = 'none');
+    const addBtn = document.getElementById('add-intern-btn');
+    if (addBtn) addBtn.style.display = 'none';
+    const sidebarFooter = document.querySelector('.sidebar-footer');
+    if (sidebarFooter) sidebarFooter.style.display = 'none';
+
     renderSidebar();
     renderGoalsView();
-    // Kick off Jira ticket loads in the background so they're ready when user switches
-    const all = [S.pmUser, ...S.interns].filter(Boolean);
-    all.forEach(u => loadTickets(u));
-    // Also auto-load Glip messages if credentials are set
-    if (S.rcPat && S.rcClientId && S.rcClientSecret && S.rcGroupId && !S.glipPosts.length) {
-      loadGlipMessages();
-    }
   }
-  // Otherwise setup screen is already visible
 })();
 </script>
 </body>
