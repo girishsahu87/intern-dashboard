@@ -2322,7 +2322,7 @@ function renderSidebar() {
 
   el.innerHTML = all.map((user, idx) => {
     const id     = uid(user);
-    const isPM   = id === uid(S.pmUser);
+    const isPM   = S.pmUser ? id === uid(S.pmUser) : false;
     const active = id === S.activeUserId;
     const name   = user.displayName || user.name || id;
     const initials = getInitials(name);
@@ -3452,7 +3452,7 @@ function renderSummary() {
     const id    = uid(user);
     const data  = S.tickets[id];
     const name  = user.displayName || user.name || id;
-    const isPM  = id === uid(S.pmUser);
+    const isPM  = S.pmUser ? id === uid(S.pmUser) : false;
     const initials = getInitials(name);
     const colorCls = isPM ? '' : AVATAR_COLORS[(all.indexOf(user) - 1) % AVATAR_COLORS.length];
     const isLoading = S.loading[id];
@@ -3761,7 +3761,7 @@ function renderBoard(user) {
   const id   = uid(user);
   const mode = S.ticketMode[id] || 'assigned';
   const data = mode === 'commented' ? (S.ticketsCommented[id] || S.tickets[id]) : S.tickets[id];
-  const isPM = id === uid(S.pmUser);
+  const isPM = S.pmUser ? id === uid(S.pmUser) : false;
   const name = user.displayName || user.name || id;
   const initials = getInitials(name);
 
@@ -4328,7 +4328,7 @@ function handleInternSearch(query) {
 
   searchTimer = setTimeout(async () => {
     const users   = await apiSearchUsers(query);
-    const tracked = new Set([uid(S.pmUser), ...S.interns.map(uid)]);
+    const tracked = new Set([...(S.pmUser ? [uid(S.pmUser)] : []), ...S.interns.map(uid)]);
     const fresh   = users.filter(u => !tracked.has(uid(u)));
 
     S.searchResults = fresh;
@@ -4377,10 +4377,14 @@ async function removeIntern(event, userId) {
   S.interns = S.interns.filter(u => uid(u) !== userId);
   delete S.tickets[userId];
   if (S.activeUserId === userId) {
-    S.activeUserId = uid(S.pmUser);
-    const cached = S.tickets[S.activeUserId];
-    if (cached) renderBoard(S.pmUser);
-    else loadTickets(S.pmUser);
+    S.activeUserId = S.pmUser ? uid(S.pmUser) : '__goals__';
+    if (S.pmUser) {
+      const cached = S.tickets[S.activeUserId];
+      if (cached) renderBoard(S.pmUser);
+      else loadTickets(S.pmUser);
+    } else {
+      renderGoalsView();
+    }
   }
   saveSettings();
   renderSidebar();
