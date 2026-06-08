@@ -8,16 +8,7 @@
     "newToday": [
       "Shubh proposed new multi-agent Kibana log analysis project for all interns (Jun 5)"
     ],
-    "noUpdate": [
-      {
-        "intern": "Harshal Gujrati",
-        "daysSilent": 3
-      },
-      {
-        "intern": "Sharvil Potdar",
-        "daysSilent": 3
-      }
-    ],
+    "noUpdate": [],
     "lagging": [
       {
         "intern": "Harshal Gujrati",
