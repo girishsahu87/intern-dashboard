@@ -1,19 +1,22 @@
 {
-  "updatedAt": "2026-06-07T12:00:00.000Z",
-  "lastFetched": "2026-06-07T12:00:00.000Z",
-  "weekOf": "2026-06-01",
-  "snapshotNote": "Jun 7: Girish deployed dashboard to GitHub Pages with weighted subtask tracking live. Deterministic tracking implemented. Parth exploring multi-agent examples per Shubh's new project idea (Kibana log analysis). Harshal & Sharvil no new updates since Jun 4.",
+  "updatedAt": "2026-06-10T12:00:00.000Z",
+  "lastFetched": "2026-06-10T12:00:00.000Z",
+  "weekOf": "2026-06-08",
+  "snapshotNote": "Jun 10: Sharvil actively driving accessibility/folderization — engineers flagged technical risk, suggesting FFS for default view toggle. Shubh confirmed user can change view. Book presentation postponed (Shubh unwell). No new updates from Parth since Jun 5.",
   "daily": {
-    "date": "2026-06-07",
+    "date": "2026-06-10",
     "newToday": [
-      "Shubh proposed new multi-agent Kibana log analysis project for all interns (Jun 5)"
+      "Sharvil: Folderization — engineering flagged technical risk, suggesting FFS toggle for default view",
+      "Book presentation postponed — Shubh unwell, will reschedule"
     ],
-    "noUpdate": [],
+    "noUpdate": [
+      { "intern": "Parth Sharma", "daysSilent": 3 }
+    ],
     "lagging": [
       {
         "intern": "Harshal Gujrati",
         "pct": 11,
-        "concern": "SMS opt-out INIT still at 11% \u2014 no progress since May 29 (9+ days)."
+        "concern": "SMS opt-out INIT still at 11% — no progress since May 29 (12+ days)."
       }
     ]
   },
@@ -23,7 +26,7 @@
       "name": "Harshal Gujrati",
       "overallPct": 82,
       "prevPct": 82,
-      "lastActivity": "2026-06-04T15:50:04.039Z",
+      "lastActivity": "2026-06-09T06:36:09.945Z",
       "tracks": [
         {
           "name": "Vodafone FMC",
@@ -265,7 +268,7 @@
       "name": "Sharvil Potdar",
       "overallPct": 84,
       "prevPct": 84,
-      "lastActivity": "2026-06-04T15:22:44.679Z",
+      "lastActivity": "2026-06-10T04:40:09.928Z",
       "tracks": [
         {
           "name": "Accessibility",
@@ -435,7 +438,7 @@
                 }
               ],
               "pct": 87,
-              "notes": "Jun 4 17:28 IST: UX received and discussed with mThor team. Kenny Lee still needs to provide the Q3 epic for deferred stories."
+              "notes": "Jun 10: Folderization — engineers flagged technical risk for toggle, suggesting FFS control. Shubh confirmed user can change default view. Deepak raised this in standup. Kenny Lee still needs to provide Q3 epic for deferred stories."
             }
           ]
         },
@@ -655,7 +658,7 @@
             {
               "text": "Additional features & Glip team connection",
               "status": "in_progress",
-              "changedToday": true,
+              "changedToday": false,
               "subtasks": [
                 {
                   "text": "Implement Shubh's suggestions",
@@ -712,7 +715,7 @@
             {
               "text": "System design & evals",
               "status": "in_progress",
-              "changedToday": true,
+              "changedToday": false,
               "subtasks": [
                 {
                   "text": "System design diagram/PPTX",
