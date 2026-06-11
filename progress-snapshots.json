@@ -1,22 +1,25 @@
 {
-  "updatedAt": "2026-06-10T12:00:00.000Z",
-  "lastFetched": "2026-06-10T12:00:00.000Z",
+  "updatedAt": "2026-06-11T12:00:00.000Z",
+  "lastFetched": "2026-06-11T12:00:00.000Z",
   "weekOf": "2026-06-08",
-  "snapshotNote": "Jun 10: Sharvil actively driving accessibility/folderization — engineers flagged technical risk, suggesting FFS for default view toggle. Shubh confirmed user can change view. Book presentation postponed (Shubh unwell). No new updates from Parth since Jun 5.",
+  "snapshotNote": "Jun 11: Shubh back \u2014 book presentation rescheduled to tomorrow (Jun 12). Asked team to catch him up on current work. No new task progress from interns since Jun 10.",
   "daily": {
-    "date": "2026-06-10",
+    "date": "2026-06-11",
     "newToday": [
-      "Sharvil: Folderization — engineering flagged technical risk, suggesting FFS toggle for default view",
-      "Book presentation postponed — Shubh unwell, will reschedule"
+      "Shubh back from sick leave \u2014 book presentation rescheduled to Jun 12",
+      "Shubh asked team: catch me up on who is doing what now"
     ],
     "noUpdate": [
-      { "intern": "Parth Sharma", "daysSilent": 3 }
+      {
+        "intern": "Parth Sharma",
+        "daysSilent": 4
+      }
     ],
     "lagging": [
       {
         "intern": "Harshal Gujrati",
         "pct": 11,
-        "concern": "SMS opt-out INIT still at 11% — no progress since May 29 (12+ days)."
+        "concern": "SMS opt-out INIT still at 11% \u2014 no progress since May 29 (13+ days)."
       }
     ]
   },
@@ -438,7 +441,7 @@
                 }
               ],
               "pct": 87,
-              "notes": "Jun 10: Folderization — engineers flagged technical risk for toggle, suggesting FFS control. Shubh confirmed user can change default view. Deepak raised this in standup. Kenny Lee still needs to provide Q3 epic for deferred stories."
+              "notes": "Jun 10: Folderization \u2014 engineers flagged technical risk for toggle, suggesting FFS control. Shubh confirmed user can change default view. Deepak raised this in standup. Kenny Lee still needs to provide Q3 epic for deferred stories."
             }
           ]
         },
