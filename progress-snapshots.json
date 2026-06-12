@@ -1,13 +1,15 @@
 {
-  "updatedAt": "2026-06-11T12:00:00.000Z",
-  "lastFetched": "2026-06-11T12:00:00.000Z",
+  "updatedAt": "2026-06-11T15:00:00.000Z",
+  "lastFetched": "2026-06-11T15:00:00.000Z",
   "weekOf": "2026-06-08",
-  "snapshotNote": "Jun 11: Shubh back \u2014 book presentation rescheduled to tomorrow (Jun 12). Asked team to catch him up on current work. No new task progress from interns since Jun 10.",
+  "snapshotNote": "Jun 11: Sharvil big update \u2014 CDH Ch 4-6 done, accessibility tickets moved to Q3 epic (Kenny Lee delivered), Phone Apps project finalized on Voicemail & Post-call AI intelligence with detailed feature doc. Book preso tomorrow (Jun 12). Parth silent 4 business days.",
   "daily": {
     "date": "2026-06-11",
     "newToday": [
-      "Shubh back from sick leave \u2014 book presentation rescheduled to Jun 12",
-      "Shubh asked team: catch me up on who is doing what now"
+      "Sharvil: CDH Ch 4-6 completed \u2014 presentation prep remains",
+      "Sharvil: Moved blocked accessibility tickets to Kenny Lee Q3 epic",
+      "Sharvil: Phone Apps \u2014 finalized Voicemail & Post-call AI intelligence, created feature doc",
+      "Book presentation confirmed for tomorrow Jun 12"
     ],
     "noUpdate": [
       {
@@ -269,9 +271,9 @@
     {
       "id": "163074129",
       "name": "Sharvil Potdar",
-      "overallPct": 84,
+      "overallPct": 88,
       "prevPct": 84,
-      "lastActivity": "2026-06-10T04:40:09.928Z",
+      "lastActivity": "2026-06-11T14:43:38.983Z",
       "tracks": [
         {
           "name": "Accessibility",
@@ -286,7 +288,7 @@
             },
             {
               "text": "Get clarification from Kenny Lee / UX team",
-              "status": "in_progress",
+              "status": "done",
               "changedToday": false,
               "subtasks": [
                 {
@@ -333,14 +335,14 @@
                 },
                 {
                   "text": "Kenny Lee to provide new Q3 epic for deferred stories",
-                  "done": false,
+                  "done": true,
                   "weight": 2,
                   "phase": "uphill",
-                  "msg_ref": "80484714209284"
+                  "msg_ref": "80710751510532"
                 }
               ],
-              "pct": 85,
-              "notes": "Jun 4 17:28 IST: UX received for accessibility tickets and discussed with mThor team. Pending: Kenny Lee to provide new epic for stories moving to Q3."
+              "pct": 100,
+              "notes": "Jun 11: Kenny Lee provided Q3 epic. Moved waiting-for-clarification tickets to Q3. Discussion on 4 Q3 tickets re: filter close action in progress."
             },
             {
               "text": "Video evidence of current behaviour",
@@ -387,8 +389,8 @@
             },
             {
               "text": "Blocked tickets \u2014 UX clarification needed",
-              "status": "in_progress",
-              "changedToday": false,
+              "status": "done",
+              "changedToday": true,
               "subtasks": [
                 {
                   "text": "Identify blocked tickets (MTR-129212, MTR-129206)",
@@ -434,14 +436,14 @@
                 },
                 {
                   "text": "Kenny Lee to provide Q3 epic for deferred stories",
-                  "done": false,
+                  "done": true,
                   "weight": 2,
                   "phase": "uphill",
-                  "msg_ref": "80484714209284"
+                  "msg_ref": "80710751510532"
                 }
               ],
-              "pct": 87,
-              "notes": "Jun 10: Folderization \u2014 engineers flagged technical risk for toggle, suggesting FFS control. Shubh confirmed user can change default view. Deepak raised this in standup. Kenny Lee still needs to provide Q3 epic for deferred stories."
+              "pct": 100,
+              "notes": "Jun 11: All subtasks done. Kenny Lee provided Q3 epic, tickets moved. Folderization toggle under FFS per engineering."
             }
           ]
         },
@@ -519,7 +521,7 @@
             {
               "text": "Confidence scoring for post-call AI",
               "status": "in_progress",
-              "changedToday": false,
+              "changedToday": true,
               "subtasks": [
                 {
                   "text": "Initial confidence scoring parameters research",
@@ -557,7 +559,8 @@
                   "msg_ref": ""
                 }
               ],
-              "pct": 50
+              "pct": 50,
+              "notes": "Jun 11: Phone Apps project scope finalized \u2014 Voicemail & Post-call AI intelligence. Detailed feature doc created with usecases and user flows."
             },
             {
               "text": "AVA Offline Evals \u2014 8 intents",
@@ -600,7 +603,7 @@
             {
               "text": "Read Continuous Discovery Habits Part 2 (Ch 4\u20136)",
               "status": "in_progress",
-              "changedToday": false,
+              "changedToday": true,
               "deadline": "2026-06-08",
               "deadlineNote": "Presentation next Monday June 8. Must include: summary, real-work example, one untested assumption.",
               "subtasks": [
@@ -613,17 +616,17 @@
                 },
                 {
                   "text": "Read Ch 5: Prioritising Opportunities",
-                  "done": false,
+                  "done": true,
                   "weight": 2,
                   "phase": "uphill",
-                  "msg_ref": ""
+                  "msg_ref": "80711229390852"
                 },
                 {
                   "text": "Read Ch 6: Identifying Assumptions",
-                  "done": false,
+                  "done": true,
                   "weight": 2,
                   "phase": "uphill",
-                  "msg_ref": ""
+                  "msg_ref": "80711229390852"
                 },
                 {
                   "text": "Prepare presentation \u2014 map to a grooming prioritization decision",
@@ -633,8 +636,8 @@
                   "msg_ref": ""
                 }
               ],
-              "pct": 20,
-              "notes": "Jun 4 20:52 IST: Ch 4 completed. Ch 5, 6 + presentation remain. Deadline June 8."
+              "pct": 60,
+              "notes": "Jun 11 20:13 IST: Ch 4-6 all completed. Presentation prep remains. Book preso rescheduled to Jun 12."
             }
           ]
         }
